@@ -116,17 +116,21 @@ function createHeart() {
 function bubuLove() {
   document.getElementById("bubu-msg").classList.remove("hidden");
 }
-  function startLove() {
+<script>
+function startLove() {
   // Hide intro
-  document.getElementById("intro").style.display = "none";
+  const intro = document.getElementById("intro");
+  intro.style.display = "none";
 
   // Show main content
-  document.getElementById("mainContent").classList.remove("hidden");
+  const main = document.getElementById("mainContent");
+  main.style.display = "block";
 
-  // Start music
+  // Unmute music
   const iframe = document.getElementById("bg-music");
   iframe.src = iframe.src.replace("mute=1", "mute=0");
-  }
+}
+</script>
 </script>
 
 </body>
