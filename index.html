@@ -55,7 +55,7 @@
 
 <script>
 // CHANGE THIS DATE 👇 (YYYY, MM-1, DD)
-const startDate = new Date(2023, 9, 24); // example: Feb 14, 2023
+const startDate = new Date(2023, 9, 24); // example: October 24, 2023
 
 const today = new Date();
 const diffTime = today - startDate;
@@ -83,6 +83,10 @@ function createHeart() {
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),5000);
 }
+  function showSecret() {
+  document.getElementById("secret").classList.remove("hidden");
+}
+
 </script>
 
 </body>
