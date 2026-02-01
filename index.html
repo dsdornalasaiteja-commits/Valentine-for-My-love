@@ -150,7 +150,38 @@ function startLove() {
   const iframe = document.getElementById("bg-music");
   iframe.src = iframe.src.replace("mute=1", "mute=0");
 }
-</script>
+
+document.addEventListener("DOMContentLoaded", function () {
+  const startBtn = document.getElementById("startBtn");
+  const intro = document.getElementById("intro");
+  const main = document.getElementById("mainContent");
+  const iframe = document.getElementById("bg-music");
+
+  // INTRO BUTTON
+  if (startBtn) {
+    startBtn.addEventListener("click", function () {
+      intro.style.display = "none";
+      main.style.display = "block";
+
+      if (iframe) {
+        iframe.src = iframe.src.replace("mute=1", "mute=0");
+      }
+    });
+  }
+
+  // 💕 YES BUTTON
+  const yesBtn = document.getElementById("yesBtn");
+  const loveSection = document.getElementById("loveSection");
+
+  if (yesBtn && loveSection) {
+    yesBtn.addEventListener("click", function () {
+      loveSection.style.display = "block";
+      yesBtn.style.display = "none";
+      createHearts();
+    });
+  }
+});
+
 </script>
 
 </body>
