@@ -8,6 +8,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const startBtn = document.getElementById("startBtn");
+  const intro = document.getElementById("intro");
+  const main = document.getElementById("mainContent");
+  const iframe = document.getElementById("bg-music");
+
+  startBtn.addEventListener("click", function () {
+    console.log("Button clicked"); // debug
+
+    intro.style.display = "none";
+    main.style.display = "block";
+
+    if (iframe) {
+      iframe.src = iframe.src.replace("mute=1", "mute=0");
+    }
+  });
+});
+  </script>
 <body>
   <div id="intro" class="intro">
   <div class="intro-card">
