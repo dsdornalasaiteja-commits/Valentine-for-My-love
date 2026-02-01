@@ -18,7 +18,8 @@ body.dimmed {
 }
 
 h1 {
-  font-size: 2.6rem;
+  font-size: 2.8rem;
+  margin-bottom: 10px;
 }
 
 .subtitle {
@@ -127,4 +128,18 @@ h1 {
 }
 function bubuLove() {
   alert("Bubu says: She’s very lucky to have you 💗");
+}
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.5px;
+}
+
+.subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+}
+
+.message, .letter, .ending, .since-text, .secret-text {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
 }
