@@ -181,7 +181,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+function createHearts() {
+  for (let i = 0; i < 20; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    document.body.appendChild(heart);
 
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = 2 + Math.random() * 3 + "s";
+
+    setTimeout(() => heart.remove(), 5000);
+  }
+}
 </script>
 
 </body>
