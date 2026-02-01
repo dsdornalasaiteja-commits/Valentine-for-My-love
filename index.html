@@ -51,6 +51,15 @@
 </div>
 
 <script>
+// CHANGE THIS DATE 👇 (YYYY, MM-1, DD)
+const startDate = new Date(2023, 9, 24); // example: Feb 14, 2023
+
+const today = new Date();
+const diffTime = today - startDate;
+const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+document.getElementById("since").innerHTML =
+  `Loving you since <strong>${diffDays}</strong> days 💞`;
 function yesClicked() {
   document.getElementById("surprise").classList.remove("hidden");
   document.body.classList.add("dimmed");
