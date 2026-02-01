@@ -1,225 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Valentine 💖</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
-  <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const startBtn = document.getElementById("startBtn");
-  const intro = document.getElementById("intro");
-  const main = document.getElementById("mainContent");
-  const iframe = document.getElementById("bg-music");
 
-  startBtn.addEventListener("click", function () {
-    console.log("Button clicked"); // debug
-
-    intro.style.display = "none";
-    main.style.display = "block";
-
-    if (iframe) {
-      iframe.src = iframe.src.replace("mute=1", "mute=0");
-    }
-  });
-});
-  </script>
 <body>
-  <div id="intro" class="intro">
+
+<!-- 🌸 INTRO SCREEN -->
+<div id="intro" class="intro">
   <div class="intro-card">
     <h1>Hey you 🤍</h1>
-    <p>
-      I made something special,<br>
-      just for you.
-    </p>
+    <p>I made something special<br>just for you</p>
     <button id="startBtn">Tap to begin 💫</button>
   </div>
-  </div>
-
-<iframe
-  id="bg-music"
-  src="https://www.youtube.com/embed/GxldQ9eX2wo?autoplay=1&loop=1&playlist=GxldQ9eX2wo&mute=1"
-  allow="autoplay"
-  class="music">
-  style="display:none">
-</iframe>
-
-<div class="container " id="mainContent">
-  <h1>Happy Valentine’s Day, My Love 💕</h1>
-
-  <p class="subtitle">
-    Every love story is beautiful,<br>
-    but ours is my favourite.
-  </p>
-<p id="since" class="since-text"></p>
-  <div class="gallery">
-    <img src="images/Pic1.jpg">
-    <img src="images/Pic2.jpg">
-  </div>
-
-  <div class="message">
-    Loving you feels like home.<br>
-    In every lifetime, it’s you.
-  </div>
-<div class="letter">
-  <p>
-    I don’t know what the future holds,<br>
-    but I know I want to face it<br>
-    with you, hand in hand.
-  </p>
 </div>
-  <div class="valentine-box">
-    <h2>Will you be my Valentine? 💘</h2>
-    <button id="yesBtn">Yes 💕</button>
+
+<!-- 💖 MAIN CONTENT -->
+<div class="container" id="mainContent">
+
+  <h1>Will you be my Valentine? 💘</h1>
+
+  <button id="yesBtn">Yes 💕</button>
+
+  <!-- ❤️ LOVE SECTION (HIDDEN INITIALLY) -->
   <div id="loveSection" style="display:none;">
 
-  <h2>Happy Valentine’s Day, My Love 💖</h2>
+    <h2>Happy Valentine’s Day, My Love 💖</h2>
 
-  <p>
-    Since we became <b>us</b>, every ordinary day
-    started feeling special.
-  </p>
-
-  <!-- PHOTOS -->
-  <div class="photos">
-    <img src="images/pic1.jpg" alt="Us">
-    <img src="images/pic2.jpg" alt="Us">
-  </div>
-
-  <!-- DUDU & BUBU -->
-  <div class="toys">
-    <img src="images/dudu.png" alt="Dudu">
-    <img src="images/bubu.png" alt="Bubu">
-  </div>
-
-  <p class="ending">
-    I choose you. Always. 💞
-  </p>
-
-  </div>
-
-  <div id="surprise" class="hidden">
-    <h2>You already had my heart 🧸💗</h2>
-    <div class="dudu-bubu">
-      <p id="secret" class="hidden secret-text">
-  I hope we grow old being silly together 🤍
-      </p>
-      <p id="bubu-msg" class="hidden secret-text">
-  Bubu says: She’s very lucky to have you 💗
-      </p>
-      <img src="images/dudu.png" onclick="showSecret()" style="cursor:pointer;">
-      <img src="images/bubu.png" onclick="bubuLove()" style="cursor:pointer;">
-    </div>
     <p>
-      Just like Dudu & Bubu,<br>
-      I want us cuddled forever.
+      Since we became <b>us</b>, every day feels a little more magical.
     </p>
+
+    <!-- PHOTOS -->
+    <div class="photos">
+      <img src="images/pic1.jpg" alt="Us">
+      <img src="images/pic2.jpg" alt="Us">
+    </div>
+
+    <!-- DUDU & BUBU -->
+    <div class="toys">
+      <img src="images/dudu.png" alt="Dudu">
+      <img src="images/bubu.png" alt="Bubu">
+    </div>
+
+    <p class="ending">
+      I choose you. Always. 💞
+    </p>
+
   </div>
 </div>
 
-<script>
-// CHANGE THIS DATE 👇 (YYYY, MM-1, DD)
-const startDate = new Date(2023, 9, 24); // example: October 24, 2023
+<!-- 🎶 BACKGROUND MUSIC -->
+<iframe
+  id="bg-music"
+  src="https://www.youtube.com/embed/GxldQ9eX2wo?aut
 
-const today = new Date();
-const diffTime = today - startDate;
-const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-document.getElementById("since").innerHTML =
-  `Loving you since <strong>${diffDays}</strong> days 💞`;
-function yesClicked() {
-  document.getElementById("surprise").classList.remove("hidden");
-  document.body.classList.add("dimmed");
-
-  const iframe = document.getElementById("bg-music");
-  iframe.src = iframe.src.replace("mute=1", "mute=0");
-
-  // CHANGE BUTTON TEXT
-  const btn = document.querySelector(".valentine-box button");
-  btn.innerText = "Forever 💗";
-  btn.disabled = true;
-
-  for (let i = 0; i < 25; i++) createHeart();
-
-  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-}
-
-function createHeart() {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = "💗";
-  h.style.left = Math.random()*100 + "vw";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),5000);
-}
-  function showSecret() {
-  document.getElementById("secret").classList.remove("hidden");
-}
-function bubuLove() {
-  document.getElementById("bubu-msg").classList.remove("hidden");
-}
-<script>
-function startLove() {
-  // Hide intro
-  const intro = document.getElementById("intro");
-  intro.style.display = "none";
-
-  // Show main content
-  const main = document.getElementById("mainContent");
-  main.style.display = "block";
-
-  // Unmute music
-  const iframe = document.getElementById("bg-music");
-  iframe.src = iframe.src.replace("mute=1", "mute=0");
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  const startBtn = document.getElementById("startBtn");
-  const intro = document.getElementById("intro");
-  const main = document.getElementById("mainContent");
-  const iframe = document.getElementById("bg-music");
-
-  // INTRO BUTTON
-  if (startBtn) {
-    startBtn.addEventListener("click", function () {
-      intro.style.display = "none";
-      main.style.display = "block";
-
-      if (iframe) {
-        iframe.src = iframe.src.replace("mute=1", "mute=0");
-      }
-    });
-  }
-
-  // 💕 YES BUTTON
-  const yesBtn = document.getElementById("yesBtn");
-  const loveSection = document.getElementById("loveSection");
-
-  if (yesBtn && loveSection) {
-    yesBtn.addEventListener("click", function () {
-      loveSection.style.display = "block";
-      yesBtn.style.display = "none";
-      createHearts();
-    });
-  }
-});
-function createHearts() {
-  for (let i = 0; i < 20; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💖";
-    document.body.appendChild(heart);
-
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = 2 + Math.random() * 3 + "s";
-
-    setTimeout(() => heart.remove(), 5000);
-  }
-}
-</script>
-
-</body>
-</html>
