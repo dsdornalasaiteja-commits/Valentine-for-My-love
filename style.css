@@ -125,3 +125,6 @@ h1 {
   font-style: italic;
   font-size: 1.15rem;
 }
+function bubuLove() {
+  alert("Bubu says: She’s very lucky to have you 💗");
+}
