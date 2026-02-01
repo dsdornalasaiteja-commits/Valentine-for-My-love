@@ -143,3 +143,42 @@ h1, h2 {
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
 }
+.intro {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.intro-card {
+  background: rgba(255,255,255,0.15);
+  padding: 40px;
+  border-radius: 25px;
+  backdrop-filter: blur(12px);
+  text-align: center;
+  animation: fadeIn 1.5s ease;
+}
+
+.intro-card h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.intro-card p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.intro-card button {
+  background: #fff;
+  color: #ff6f91;
+  border: none;
+  padding: 14px 30px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+}
