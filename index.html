@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Valentine 💖</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<iframe
+  id="bg-music"
+  src="https://www.youtube.com/embed/GxldQ9eX2wo?autoplay=1&loop=1&playlist=GxldQ9eX2wo&mute=1"
+  allow="autoplay"
+  class="music">
+</iframe>
+
+<div class="container">
+  <h1>Happy Valentine’s Day, My Love 💕</h1>
+
+  <p class="subtitle">
+    Every love story is beautiful,<br>
+    but ours is my favourite.
+  </p>
+
+  <div class="gallery">
+    <img src="images/pic1.jpg">
+    <img src="images/pic2.jpg">
+  </div>
+
+  <div class="message">
+    Loving you feels like home.<br>
+    In every lifetime, it’s you.
+  </div>
+
+  <div class="valentine-box">
+    <h2>Will you be my Valentine? 💘</h2>
+    <button onclick="yesClicked()">Yes 💕</button>
+  </div>
+
+  <div id="surprise" class="hidden">
+    <h2>You already had my heart 🧸💗</h2>
+    <div class="dudu-bubu">
+      <img src="images/dudu.png">
+      <img src="images/bubu.png">
+    </div>
+    <p>
+      Just like Dudu & Bubu,<br>
+      I want us cuddled forever.
+    </p>
+  </div>
+</div>
+
+<script>
+function yesClicked() {
+  document.getElementById("surprise").classList.remove("hidden");
+  document.body.classList.add("dimmed");
+
+  const iframe = document.getElementById("bg-music");
+  iframe.src = iframe.src.replace("mute=1","mute=0");
+
+  for(let i=0;i<25;i++) createHeart();
+
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+}
+
+function createHeart() {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💗";
+  h.style.left = Math.random()*100 + "vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+}
+</script>
+
+</body>
+</html>
