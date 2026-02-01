@@ -116,6 +116,17 @@ function createHeart() {
 function bubuLove() {
   document.getElementById("bubu-msg").classList.remove("hidden");
 }
+  function startLove() {
+  // Hide intro
+  document.getElementById("intro").style.display = "none";
+
+  // Show main content
+  document.getElementById("mainContent").classList.remove("hidden");
+
+  // Start music
+  const iframe = document.getElementById("bg-music");
+  iframe.src = iframe.src.replace("mute=1", "mute=0");
+  }
 </script>
 
 </body>
