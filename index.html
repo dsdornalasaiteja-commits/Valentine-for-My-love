@@ -1,1 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Valentine 💖</title>
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- 🌸 INTRO SCREEN -->
+<div id="intro" class="intro">
+  <div class="intro-card">
+    <h1>Hey you 🤍</h1>
+    <p>I made something special<br>just for you</p>
+    <button id="startBtn">Tap to begin 💫</button>
+  </div>
+</div>
+
+<!-- 💖 MAIN CONTENT -->
+<div class="container" id="mainContent">
+
+  <h1>Will you be my Valentine? 💘</h1>
+
+  <button id="yesBtn">Yes 💕</button>
+
+  <!-- ❤️ LOVE SECTION (HIDDEN INITIALLY) -->
+  <div id="loveSection" style="display:none;">
+
+    <h2>Happy Valentine’s Day, My Love 💖</h2>
+
+    <p>
+      Since we became <b>us</b>, every day feels a little more magical.
+    </p>
+
+    <!-- PHOTOS -->
+    <div class="photos">
+      <img src="images/pic1.jpg" alt="Us">
+      <img src="images/pic2.jpg" alt="Us">
+    </div>
+
+    <!-- DUDU & BUBU -->
+    <div class="toys">
+      <img src="images/dudu.png" alt="Dudu">
+      <img src="images/bubu.png" alt="Bubu">
+    </div>
+
+    <p class="ending">
+      I choose you. Always. 💞
+    </p>
+
+  </div>
+</div>
+
+<!-- 🎶 BACKGROUND MUSIC -->
+<iframe
+  id="bg-music"
+  src="https://www.youtube.com/embed/GxldQ9eX2wo?autoplay=1&mute=1&loop=1"
+  allow="autoplay"
+  style="display:none">
+</iframe>
+
+<!-- ✅ JAVASCRIPT (ONLY ONE SCRIPT, AT BOTTOM) -->
+<script>
+function createHearts() {
+  for (let i = 0; i < 20; i++) {
+    const heart = document.createElement("div");
+    heart.textContent = "💖";
+    heart.style.position = "fixed";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "100vh";
+    heart.style.fontSize = "24px";
+    heart.style.animation = "floatUp 4s ease forwards";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 4000);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const startBtn = document.getElementById("startBtn");
+  const intro = document.getElementById("intro");
+  const main = document.getElementById("mainContent");
+  const yesBtn = document.getElementById("yesBtn");
+  const loveSection = document.getElementById("loveSection");
+  const iframe = document.getElementById("bg-music");
+
+  // INTRO BUTTON
+  startBtn.addEventListener("click", function () {
+    intro.style.display = "none";
+    main.style.display = "block";
+    iframe.src = iframe.src.replace("mute=1", "mute=0");
+  });
+
+  // YES BUTTON
+  yesBtn.addEventListener("click", function () {
+    loveSection.style.display = "block";
+    yesBtn.style.display = "none";
+    createHearts();
+  });
+
+});
+</script>
+
+</body>
+</html>
