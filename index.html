@@ -68,9 +68,14 @@ function yesClicked() {
   document.body.classList.add("dimmed");
 
   const iframe = document.getElementById("bg-music");
-  iframe.src = iframe.src.replace("mute=1","mute=0");
+  iframe.src = iframe.src.replace("mute=1", "mute=0");
 
-  for(let i=0;i<25;i++) createHeart();
+  // CHANGE BUTTON TEXT
+  const btn = document.querySelector(".valentine-box button");
+  btn.innerText = "Forever 💗";
+  btn.disabled = true;
+
+  for (let i = 0; i < 25; i++) createHeart();
 
   window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 }
