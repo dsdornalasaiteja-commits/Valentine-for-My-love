@@ -1,1 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Prescription 💊</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffe4e6 0%, #fae8ff 100%);
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .serif { font-family: 'Playfair Display', serif; }
+
+        /* Glassmorphism Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heartbeat Pulse Animation for the Yes Button */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: heartbeat 1.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        /* Floating Hearts */
+        @keyframes heartFloat {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        .heart-particle {
+            position: fixed;
+            color: #fb7185;
+            pointer-events: none;
+            animation: heartFloat linear infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="vibe-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="hearts-container"></div>
+
+    <main class="relative z-10 w-full max-w-md px-6">
+        <div id="main-card" class="glass-card rounded-[3rem] p-10 text-center transition-all duration-700">
+            
+            <div class="mb-6">
+                <img id="display-image" 
+                     src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIycXN4OHR5bmZ6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZContext/K7QnKfXLoAdM4/giphy.gif" 
+                     class="w-44 h-44 mx-auto rounded-3xl object-cover shadow-lg">
+            </div>
+
+            <h1 id="question" class="serif text-3xl text-gray-800 mb-2">Will you be my Valentine?</h1>
+            <p id="subtext" class="text-gray-500 text-sm mb-8 italic">Paging my favorite person... ❤️</p>
+
+            <div class="flex flex-col gap-4 items-center" id="button-group">
+                <button id="yesBtn" class="pulse w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-4 rounded-2xl shadow-xl shadow-rose-200 uppercase tracking-widest transition-all">
+                    YES! ✨
+                </button>
+                <button id="noBtn" class="w-full bg-white/40 text-gray-500 font-semibold py-3 rounded-2xl border border-white/40 transition-all">
+                    No
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const music = document.getElementById('vibe-music');
+        const displayImage = document.getElementById('display-image');
+        const question = document.getElementById('question');
+        const subtext = document.getElementById('subtext');
+
+        let yesScale = 1;
+        let noClickCount = 0;
+
+        const phrases = [
+            "No", "Are you sure? 🩺", "Check your heart rate!", "High BP detected!", 
+            "Is that your final diagnosis?", "I'll prescribe chocolate!", 
+            "The EKG is flatlining!", "Just click YES! 🥰"
+        ];
+
+        noBtn.addEventListener('click', () => {
+            noClickCount++;
+            noBtn.innerText = phrases[Math.min(noClickCount, phrases.length - 1)];
+            
+            // Remove pulse from Yes button so it doesn't look weird while growing
+            yesBtn.classList.remove('pulse');
+            
+            yesScale += 0.5;
+            yesBtn.style.transform = `scale(${yesScale})`;
+            
+            displayImage.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Y1djB4NDR5bmZ6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZContext/7SF5scGB2AFrO/giphy.gif";
+        });
+
+        yesBtn.addEventListener('click', () => {
+            // Play the music.mp3 file
+            music.play();
+            
+            // UI Changes
+            document.getElementById('button-group').classList.add('hidden');
+            subtext.style.display = 'none';
+            question.innerText = "Hooray! See you then! ❤️";
+            displayImage.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXMzenBxd2p6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZContext/l41lH4ADRtAYnGsLe/giphy.gif";
+            
+            // Explode with hearts
+            setInterval(createHeart, 100);
+        });
+
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
 
