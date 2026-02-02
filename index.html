@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500;700&display=swap');
+        
+        body { font-family: 'Quicksand', sans-serif; background: #fff5f5; scroll-behavior: smooth; overflow-x: hidden; }
+        .cursive { font-family: 'Dancing Script', cursive; }
+
+        /* ENVELOPE STYLING */
+        .envelope-wrapper { background: #fdf2f2; height: 100vh; display: flex; align-items: center; justify-content: center; transition: all 1s ease-in-out; z-index: 100; }
+        .envelope { position: relative; width: 280px; height: 180px; background: #fca5a5; border-radius: 0 0 15px 15px; cursor: pointer; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .envelope::before { content: ''; position: absolute; top: -110px; left: 0; border-left: 140px solid transparent; border-right: 140px solid transparent; border-bottom: 110px solid #fecaca; transition: 0.5s; transform-origin: bottom; z-index: 3; }
+        .envelope.open::before { transform: rotateX(180deg) translateY(10px); z-index: 1; }
+        .heart-seal { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); font-size: 40px; z-index: 4; }
+
+        /* 10 PERSONAL STICKERS */
+        .her-sticker {
+            position: fixed;
+            object-fit: contain;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0.9;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+            animation: floatSticker 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatSticker {
+            0% { transform: translate(0, 0) rotate(-5deg); }
+            100% { transform: translate(15px, 30px) rotate(5deg); }
+        }
+
+        /* SCRAPBOOK POLAROIDS */
+        .polaroid { background: white; padding: 10px 10px 40px 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); transition: transform 0.3s ease; border-radius: 2px; break-inside: avoid; margin-bottom: 1.5rem; border: 1px solid #fef2f2; }
+        .polaroid:hover { transform: scale(1.05) rotate(0deg) !important; z-index: 20; }
+        .polaroid img { width: 100%; border-radius: 2px; }
+
+        /* CUSTOM POPUP */
+        #love-popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 200; width: 320px; }
+        .glass-note { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border: 2px solid white; border-radius: 30px; padding: 35px; text-align: center; box-shadow: 0 25px 60px rgba(225, 29, 72, 0.15); }
+    </style>
+</head>
+<body>
+
+    <div id="love-popup">
+        <div class="glass-note">
+            <p id="popup-text" class="cursive text-3xl text-rose-500 mb-6"></p>
+            <button onclick="closeNote()" class="text-xs uppercase tracking-widest text-rose-300 font-bold border-t pt-4 w-full hover:text-rose-500 transition-colors">Close with love</button>
+        </div>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <img src="her1.png" class="her-sticker" style="top: 5%; left: 2%; width: 110px; animation-delay: 0s;">
+    <img src="her2.png" class="her-sticker" style="top: 12%; right: 3%; width: 100px; animation-delay: 1s;">
+    <img src="her3.png" class="her-sticker" style="bottom: 8%; left: 4%; width: 120px; animation-delay: 2s;">
+    <img src="her4.png" class="her-sticker" style="top: 60%; right: 2%; width: 90px; animation-delay: 0.5s;">
+    <img src="her5.png" class="her-sticker" style="top: 35%; left: 1%; width: 85px; animation-delay: 3s;">
+    <img src="her6.png" class="her-sticker" style="top: 45%; right: 1%; width: 95px; animation-delay: 1.5s;">
+    <img src="her7.png" class="her-sticker" style="bottom: 40%; left: 2%; width: 80px; animation-delay: 4s;">
+    <img src="her8.png" class="her-sticker" style="top: 25%; left: 15%; width: 70px; animation-delay: 2.5s; opacity: 0.6;">
+    <img src="her9.png" class="her-sticker" style="bottom: 25%; left: 15%; width: 85px; animation-delay: 3.5s;">
+    <img src="her10.png" class="her-sticker" style="bottom: 5%; left: 45%; width: 100px; animation-delay: 5s;">
+
+    <section id="envelope-screen" class="envelope-wrapper fixed inset-0">
+        <div class="text-center">
+            <div class="envelope" id="envelope" onclick="openEnvelope()">
+                <div class="heart-seal">💖</div>
+            </div>
+            <p class="cursive text-3xl text-rose-400 mt-10 animate-pulse">A special delivery...</p>
+        </div>
+    </section>
+
+    <section id="proposal-section" class="min-h-screen flex flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-1000">
+        <div class="bg-white/80 backdrop-blur-md p-8 rounded-[3rem] shadow-2xl max-w-sm w-full text-center border border-white">
+            <img id="main-img" src="Pic1.jpg" class="w-full h-80 object-cover rounded-[2.5rem] mb-6 shadow-sm cursor-pointer" onclick="showNote('You are literally perfect. ✨')">
+            <h1 id="headline" class="cursive text-4xl text-rose-500 mb-8">Will you be my Valentine?</h1>
+            <div id="btn-group" class="space-y-4">
+                <button id="yesBtn" class="w-full bg-rose-400 hover:bg-rose-600 text-white font-bold py-5 rounded-full text-xl shadow-lg transition-all active:scale-95">Yes, I'd Love To! 💖</button>
+                <button id="noBtn" class="w-full bg-gray-
 
