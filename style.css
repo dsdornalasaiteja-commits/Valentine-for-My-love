@@ -160,3 +160,40 @@ button {
   font-weight: 600;
   letter-spacing: 0.5px;
 }
+/* =========================
+   FIX 4: INTRO & TRANSITION
+   ========================= */
+
+.screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.screen.hidden {
+  display: none;
+}
+
+.screen.active {
+  opacity: 1;
+}
+
+/* Fade in effect */
+#main {
+  animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
