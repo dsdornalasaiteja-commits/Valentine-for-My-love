@@ -31,6 +31,15 @@
         .polaroid { background: white; padding: 12px 12px 35px 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); transition: transform 0.3s ease; border-radius: 2px; break-inside: avoid; margin-bottom: 1.5rem; border: 1px solid #fef2f2; display: flex; flex-direction: column; align-items: center; }
         .polaroid img { width: 100%; border-radius: 2px; margin-bottom: 10px; }
         .polaroid p { margin: 0; color: #9ca3af; font-size: 1.25rem; }
+        .counter-box { 
+    background: rgba(255, 255, 255, 0.8); 
+    padding: 15px; 
+    border-radius: 20px; 
+    min-width: 80px; 
+    border: 1px solid white; 
+    box-shadow: 0 10px 20px rgba(244, 63, 94, 0.05); 
+}
+
     </style>
 </head>
 <body>
@@ -180,6 +189,21 @@
         document.getElementById('vase-flowers').innerHTML = '';
     }
 </script>
+<section class="max-w-4xl mx-auto py-16 px-6 text-center">
+    <div class="bg-white/60 backdrop-blur-md rounded-[2rem] p-10 border border-white shadow-xl relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-rose-100">
+            <div class="h-full bg-rose-400 animate-pulse" style="width: 100%;"></div>
+        </div>
+        <h2 class="cursive text-4xl text-rose-500 mb-6">Time spent loving you...</h2>
+        <div class="flex flex-wrap justify-center gap-4">
+            <div class="counter-box"><span id="days" class="text-3xl font-bold text-rose-600 block">00</span><span class="text-xs text-gray-400">Days</span></div>
+            <div class="counter-box"><span id="hours" class="text-3xl font-bold text-rose-600 block">00</span><span class="text-xs text-gray-400">Hours</span></div>
+            <div class="counter-box"><span id="minutes" class="text-3xl font-bold text-rose-600 block">00</span><span class="text-xs text-gray-400">Mins</span></div>
+            <div class="counter-box"><span id="seconds" class="text-3xl font-bold text-rose-600 block">00</span><span class="text-xs text-gray-400">Secs</span></div>
+        </div>
+        <p class="mt-6 text-gray-400 text-sm italic">Since October 24, 2023 🩺</p>
+    </div>
+</section>
 
     <section class="max-w-6xl mx-auto py-24 px-6">
         <h2 class="cursive text-6xl text-rose-400 text-center mb-20">Our Beautiful Story</h2>
@@ -244,6 +268,22 @@
             document.getElementById('main-img').src = "Pic2.jpg";
             document.getElementById('btn-group').innerHTML = `<p class="cursive text-4xl text-rose-400 animate-bounce mt-4">See you on the 14th! ✨</p>`;
         });
+        const startDate = new Date(2023, 9, 24); // Anniversary: 24/10/2023
+
+function updateCounter() {
+    const now = new Date();
+    const diff = now - startDate;
+
+    document.getElementById('days').innerText = Math.floor(diff / 86400000);
+    document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24);
+    document.getElementById('minutes').innerText = Math.floor((diff / 60000) % 60);
+    document.getElementById('seconds').innerText = Math.floor((diff / 1000) % 60);
+}
+
+// Run the clock every second
+setInterval(updateCounter, 1000);
+updateCounter(); 
+
     </script>
 </body>
 </html>
