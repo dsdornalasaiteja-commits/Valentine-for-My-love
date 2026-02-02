@@ -49,3 +49,42 @@ body {
 @keyframes floatToy { 0%,100% {transform:translateY(0);} 50% {transform:translateY(-10px);} }
 @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
 @keyframes floatUp { to {transform:translateY(-120vh); opacity:0;} }
+/* ---------- CENTER MAIN CONTENT ---------- */
+#mainContent {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ---------- CARD STYLE ---------- */
+.card {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  padding: 30px 20px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* ---------- FIX PHOTO SIZE ---------- */
+.photos img {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  border-radius: 20px;
+}
+
+/* ---------- TEXT SPACING ---------- */
+#loveSection h2 {
+  margin-top: 10px;
+}
+
+#counter {
+  margin: 15px 0;
+  font-weight: 500;
+  color: #6a1b9a;
+}
