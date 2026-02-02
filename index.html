@@ -77,6 +77,109 @@
         </div>
         <p class="mt-12 text-rose-300 animate-bounce text-lg">Scroll for our story ↓</p>
     </section>
+<section class="max-w-4xl mx-auto py-20 px-6 text-center relative">
+    <h2 class="cursive text-5xl text-rose-400 mb-10">Build Your Bouquet 💐</h2>
+    <p class="text-rose-300 mb-8 italic text-lg">Pick 10 flowers to see what happens...</p>
+    
+    <div class="flex justify-center gap-6 mb-12 text-4xl">
+        <button onclick="addFlower('🌹')" class="hover:scale-125 transition-transform cursor-pointer">🌹</button>
+        <button onclick="addFlower('🌷')" class="hover:scale-125 transition-transform cursor-pointer">🌷</button>
+        <button onclick="addFlower('🌻')" class="hover:scale-125 transition-transform cursor-pointer">🌻</button>
+        <button onclick="addFlower('🌸')" class="hover:scale-125 transition-transform cursor-pointer">🌸</button>
+        <button onclick="addFlower('🌿')" class="hover:scale-125 transition-transform cursor-pointer">🌿</button>
+    </div>
+
+    <div class="relative mx-auto w-64 h-80 bg-white/40 backdrop-blur-sm rounded-b-[100px] border-x-2 border-b-4 border-white/60 shadow-xl flex items-end justify-center">
+        <div id="vase-flowers" class="relative w-full h-full flex flex-wrap-reverse justify-center items-end p-6 pb-12">
+            </div>
+        <div class="absolute bottom-0 w-full h-24 bg-rose-200/20 rounded-b-[90px]"></div>
+    </div>
+    
+    <button onclick="clearVase()" class="mt-8 text-rose-300 text-xs uppercase tracking-widest hover:text-rose-400">Clear Vase</button>
+</section>
+
+<style>
+    /* Fountain Heart Animation */
+    .fountain-heart {
+        position: absolute;
+        bottom: 150px; /* Starts from the vase top */
+        left: 50%;
+        pointer-events: none;
+        z-index: 100;
+        font-size: 2rem;
+        animation: fountain 2.5s ease-out forwards;
+    }
+
+    @keyframes fountain {
+        0% {
+            transform: translate(-50%, 0) scale(0.5);
+            opacity: 1;
+        }
+        30% {
+            transform: translate(var(--x), var(--y)) scale(1.2);
+        }
+        100% {
+            transform: translate(var(--x-end), 500px) scale(0.5) rotate(var(--r));
+            opacity: 0;
+        }
+    }
+</style>
+
+<script>
+    function addFlower(emoji) {
+        const vase = document.getElementById('vase-flowers');
+        if (vase.children.length >= 15) return; // Limit to keep it neat
+
+        const flower = document.createElement('div');
+        const randomRotate = Math.floor(Math.random() * 40) - 20;
+        
+        flower.innerHTML = emoji;
+        flower.className = "text-5xl animate-bounce";
+        flower.style.transform = `rotate(${randomRotate}deg)`;
+        flower.style.margin = "-10px"; // Overlap for bouquet look
+        
+        vase.appendChild(flower);
+        
+        // Trigger Fountain on the 10th flower
+        if (vase.children.length === 10) {
+            triggerHeartFountain();
+            setTimeout(() => {
+                showNote("A bouquet as beautiful as the one holding the phone! ❤️");
+            }, 500);
+        }
+    }
+
+    function triggerHeartFountain() {
+        const container = document.body;
+        const heartEmojis = ['❤️', '💖', '💝', '💕', '🌸', '✨'];
+
+        for (let i = 0; i < 40; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'fountain-heart';
+            heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            
+            // Random trajectory logic
+            const x = (Math.random() - 0.5) * 400; // Wide spray
+            const y = -Math.random() * 500 - 200;  // Upward burst
+            const xEnd = x + (Math.random() - 0.5) * 200;
+            const r = Math.random() * 360;
+
+            heart.style.setProperty('--x', `${x}px`);
+            heart.style.setProperty('--y', `${y}px`);
+            heart.style.setProperty('--x-end', `${xEnd}px`);
+            heart.style.setProperty('--r', `${r}deg`);
+
+            container.appendChild(heart);
+            
+            // Clean up after animation
+            setTimeout(() => heart.remove(), 2500);
+        }
+    }
+
+    function clearVase() {
+        document.getElementById('vase-flowers').innerHTML = '';
+    }
+</script>
 
     <section class="max-w-6xl mx-auto py-24 px-6">
         <h2 class="cursive text-6xl text-rose-400 text-center mb-20">Our Beautiful Story</h2>
