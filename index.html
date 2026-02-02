@@ -11,71 +11,26 @@
         body { font-family: 'Quicksand', sans-serif; background: #fff5f5; scroll-behavior: smooth; overflow-x: hidden; margin: 0; }
         .cursive { font-family: 'Dancing Script', cursive; }
 
-        /* --- ENVELOPE FIX --- */
-        .envelope-wrapper { 
-            background: #fdf2f2; 
-            height: 100vh; 
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            justify-content: center; 
-            transition: all 1s ease-in-out; 
-            z-index: 100; 
-            position: fixed;
-            inset: 0;
-        }
-
-        .envelope { 
-            position: relative; 
-            width: 280px; 
-            height: 180px; 
-            background: #fca5a5; /* Darker pink for body */
-            border-radius: 0 0 15px 15px; 
-            cursor: pointer; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
-        }
-
-        /* The Lid */
-        .envelope::before { 
-            content: ''; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            border-left: 140px solid transparent; 
-            border-right: 140px solid transparent; 
-            border-top: 110px solid #fecaca; /* Lighter pink for lid */
-            transition: transform 0.6s ease; 
-            transform-origin: top; 
-            z-index: 3; 
-        }
-
-        /* When Open */
-        .envelope.open::before { 
-            transform: rotateX(180deg); 
-            z-index: 1; 
-        }
-
-        .heart-seal { 
-            position: absolute; 
-            top: -15px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            font-size: 40px; 
-            z-index: 4; 
-            transition: opacity 0.3s;
-        }
-
+        /* --- ENVELOPE STYLING --- */
+        .envelope-wrapper { background: #fdf2f2; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 1s ease-in-out; z-index: 100; position: fixed; inset: 0; }
+        .envelope { position: relative; width: 280px; height: 180px; background: #fca5a5; border-radius: 0 0 15px 15px; cursor: pointer; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .envelope::before { content: ''; position: absolute; top: 0; left: 0; border-left: 140px solid transparent; border-right: 140px solid transparent; border-top: 110px solid #fecaca; transition: transform 0.6s ease; transform-origin: top; z-index: 3; }
+        .envelope.open::before { transform: rotateX(180deg); z-index: 1; }
+        .heart-seal { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-size: 40px; z-index: 4; transition: opacity 0.3s; }
         .envelope.open .heart-seal { opacity: 0; }
 
-        /* --- STICKERS & POPUP --- */
+        /* --- STICKERS --- */
         .her-sticker { position: fixed; object-fit: contain; pointer-events: none; z-index: 10; opacity: 0.9; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); animation: floatSticker 5s ease-in-out infinite alternate; }
         @keyframes floatSticker { 0% { transform: translate(0, 0) rotate(-5deg); } 100% { transform: translate(15px, 30px) rotate(5deg); } }
         
+        /* --- POPUP --- */
         #love-popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 200; width: 320px; }
         .glass-note { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border: 2px solid white; border-radius: 30px; padding: 35px; text-align: center; box-shadow: 0 25px 60px rgba(225, 29, 72, 0.15); }
 
-        .polaroid { background: white; padding: 10px 10px 40px 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); transition: transform 0.3s ease; border-radius: 2px; break-inside: avoid; margin-bottom: 1.5rem; border: 1px solid #fef2f2; }
-        .polaroid img { width: 100%; border-radius: 2px; }
+        /* --- POLAROIDS --- */
+        .polaroid { background: white; padding: 12px 12px 35px 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); transition: transform 0.3s ease; border-radius: 2px; break-inside: avoid; margin-bottom: 1.5rem; border: 1px solid #fef2f2; display: flex; flex-direction: column; align-items: center; }
+        .polaroid img { width: 100%; border-radius: 2px; margin-bottom: 10px; }
+        .polaroid p { margin: 0; color: #9ca3af; font-size: 1.25rem; }
     </style>
 </head>
 <body>
@@ -94,12 +49,14 @@
     <img src="her1.png" class="her-sticker" style="top: 5%; left: 2%; width: 100px;">
     <img src="her2.png" class="her-sticker" style="top: 12%; right: 3%; width: 90px;">
     <img src="her3.png" class="her-sticker" style="bottom: 8%; left: 4%; width: 110px;">
-    <img src="her4.png" class="her-sticker" style="top: 60%; right: 2%; width: 80px;">
+    
+    <img src="her4.png" class="her-sticker" style="bottom: 30%; right: 2%; width: 85px;"> 
+    
     <img src="her5.png" class="her-sticker" style="top: 35%; left: 1%; width: 85px;">
     <img src="her6.png" class="her-sticker" style="top: 45%; right: 1%; width: 95px;">
-    <img src="her7.png" class="her-sticker" style="bottom: 40%; left: 2%; width: 80px;">
+    <img src="her7.png" class="her-sticker" style="bottom: 45%; left: 2%; width: 80px;">
     <img src="her8.png" class="her-sticker" style="top: 25%; left: 15%; width: 70px; opacity: 0.6;">
-    <img src="her9.png" class="her-sticker" style="bottom: 25%; left: 15%; width: 85px;">
+    <img src="her9.png" class="her-sticker" style="bottom: 20%; left: 10%; width: 85px;">
     <img src="her10.png" class="her-sticker" style="bottom: 5%; left: 45%; width: 100px;">
 
     <section id="envelope-screen" class="envelope-wrapper">
@@ -115,7 +72,7 @@
             <h1 id="headline" class="cursive text-4xl text-rose-500 mb-8">Will you be my Valentine?</h1>
             <div id="btn-group" class="space-y-4">
                 <button id="yesBtn" class="w-full bg-rose-400 hover:bg-rose-600 text-white font-bold py-5 rounded-full text-xl shadow-lg transition-all">Yes, I'd Love To! 💖</button>
-                <button id="noBtn" class="w-full bg-gray-50 text-gray-300 py-2 rounded-full text-xs italic">No</button>
+                <button id="noBtn" class="w-full bg-gray-100 text-gray-300 py-2 rounded-full text-xs italic">No</button>
             </div>
         </div>
         <p class="mt-12 text-rose-300 animate-bounce text-lg">Scroll for our story ↓</p>
@@ -124,18 +81,18 @@
     <section class="max-w-6xl mx-auto py-24 px-6">
         <h2 class="cursive text-6xl text-rose-400 text-center mb-20">Our Beautiful Story</h2>
         <div class="columns-1 sm:columns-2 lg:columns-3 gap-8">
-            <div class="polaroid"><img src="Pic1.jpg"></div>
-            <div class="polaroid" onclick="showNote('You look so cute here! ✨')"><img src="Pic3.jpg"></div>
-            <div class="polaroid"><img src="Pic4.jpg"></div>
-            <div class="polaroid"><img src="Pic5.jpg"></div>
-            <div class="polaroid"><img src="Pic6.jpg"></div>
-            <div class="polaroid"><img src="Pic7.jpg"></div>
-            <div class="polaroid"><img src="Pic8.jpg"></div>
-            <div class="polaroid"><img src="Pic9.jpg"></div>
-            <div class="polaroid"><img src="Pic10.jpg"></div>
-            <div class="polaroid"><img src="Pic11.jpg"></div>
-            <div class="polaroid"><img src="Pic12.jpg"></div>
-            <div class="polaroid"><img src="Pic2.jpg"></div>
+            <div class="polaroid"><img src="Pic1.jpg"><p class="cursive">Where it started</p></div>
+            <div class="polaroid" onclick="showNote('You look so cute here! ✨')"><img src="Pic3.jpg"><p class="cursive">First Date ✨</p></div>
+            <div class="polaroid"><img src="Pic4.jpg"><p class="cursive">Pure Happiness</p></div>
+            <div class="polaroid"><img src="Pic5.jpg"><p class="cursive">Our Adventure</p></div>
+            <div class="polaroid"><img src="Pic6.jpg"><p class="cursive">My Favorite View</p></div>
+            <div class="polaroid"><img src="Pic7.jpg"><p class="cursive">Golden Hour</p></div>
+            <div class="polaroid"><img src="Pic8.jpg"><p class="cursive">Silly Moments</p></div>
+            <div class="polaroid"><img src="Pic9.jpg"><p class="cursive">Little Things</p></div>
+            <div class="polaroid"><img src="Pic10.jpg"><p class="cursive">Sunny Days</p></div>
+            <div class="polaroid"><img src="Pic11.jpg"><p class="cursive">That Smile</p></div>
+            <div class="polaroid"><img src="Pic12.jpg"><p class="cursive">Everything</p></div>
+            <div class="polaroid"><img src="Pic2.jpg"><p class="cursive">Forever to go</p></div>
         </div>
     </section>
 
@@ -187,5 +144,7 @@
     </script>
 </body>
 </html>
+
+  
 
 
