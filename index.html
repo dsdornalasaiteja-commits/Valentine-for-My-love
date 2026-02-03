@@ -82,6 +82,16 @@
     animation: floatUp 3s linear forwards;
     z-index: 5;
 }
+.falling-heart {
+    position: fixed;
+    top: -10%;
+    cursor: pointer;
+    z-index: 100;
+    font-size: 2rem;
+    animation: fall linear forwards;
+    transition: transform 0.2s;
+}
+.falling-heart:hover { transform: scale(1.5); }
 
     </style>
 </head>
@@ -444,6 +454,26 @@ function bloomFinalMessage() {
         }, 100);
     }, 800);
 }
+function createGameHeart() {
+    const heart = document.createElement('div');
+    const compliments = ["You're Cute!", "My Love ❤️", "Stay Mine", "Beautiful ✨", "My Queen"];
+    
+    heart.innerHTML = '💖';
+    heart.className = 'falling-heart';
+    heart.style.left = Math.random() * 90 + 'vw';
+    heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+    
+    // The "Game" part
+    heart.onclick = function() {
+        const msg = compliments[Math.floor(Math.random() * compliments.length)];
+        this.innerHTML = `<span class="bg-white px-2 py-1 rounded-full text-xs text-rose-500 shadow-lg">${msg}</span>`;
+        setTimeout(() => this.remove(), 1000);
+    };
+
+    document.body.appendChild(heart);
+    setTimeout(() => { if(heart.parentNode) heart.remove(); }, 6000);
+}
+setInterval(createGameHeart, 1500);
 
     </script>
 </body>
