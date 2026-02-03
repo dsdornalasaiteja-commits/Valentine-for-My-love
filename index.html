@@ -85,6 +85,11 @@
             opacity: 0;
         }
     }
+        @keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
     </style>
 </head>
 <body>
@@ -408,6 +413,43 @@ document.addEventListener('touchmove', (e) => {
     createHeartAt(touch.clientX, touch.clientY);
 }, { passive: true });
 
+function createGameHeart() {
+    const heart = document.createElement('div');
+    const compliments = ["You're Cute!", "My Love ❤️", "Stay Mine", "Beautiful ✨", "My Queen", "Forever? 💍"];
+    
+    heart.innerHTML = '💖';
+    heart.className = 'falling-heart';
+    heart.style.position = 'fixed'; // Ensures they stay on screen
+    heart.style.left = Math.random() * 90 + 'vw';
+    heart.style.top = '-10%';
+    heart.style.zIndex = '5000'; // Higher than polaroids and stickers
+    heart.style.cursor = 'pointer';
+    heart.style.fontSize = '2.5rem';
+    heart.style.animation = `fall ${Math.random() * 3 + 4}s linear forwards`;
+    
+    // Support for both Click and Touch
+    const handlePop = function(e) {
+        e.preventDefault(); // Prevents tablet scrolling while tapping
+        const msg = compliments[Math.floor(Math.random() * compliments.length)];
+        heart.innerHTML = `<span style="background: white; padding: 5px 15px; border-radius: 20px; font-size: 1rem; color: #e11d48; shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #ffe4e6; white-space: nowrap;">${msg}</span>`;
+        heart.style.animationPlayState = 'paused'; // Stop falling when clicked
+        setTimeout(() => {
+            heart.style.opacity = '0';
+            setTimeout(() => heart.remove(), 500);
+        }, 1000);
+    };
+
+    heart.addEventListener('mousedown', handlePop);
+    heart.addEventListener('touchstart', handlePop);
+
+    document.body.appendChild(heart);
+    
+    // Clean up if not clicked
+    setTimeout(() => { if(heart.parentNode) heart.remove(); }, 7000);
+}
+
+// Ensure the interval is running
+setInterval(createGameHeart, 2000);
 
     </script>
 </body>
