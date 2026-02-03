@@ -476,6 +476,150 @@ function createGameHeart() {
 setInterval(createGameHeart, 1500);
 
     </script>
+    <section class="max-w-2xl mx-auto py-16 px-6 text-center">
+    <div class="bg-white/40 backdrop-blur-md p-6 sm:p-10 rounded-[40px] border border-white/60 shadow-2xl relative overflow-hidden">
+        
+        <h3 class="cursive text-3xl text-rose-400 mb-8">Pop the hearts for a special question... 🫧</h3>
+        
+        <div class="grid grid-cols-4 sm:grid-cols-6 gap-3 justify-items-center">
+            <div onclick="popHeart(this, 'P')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'E')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'L')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'L')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'I')" class="pop-bubble">💖</div>
+            
+            <div class="hidden sm:block"></div> <div onclick="popHeart(this, 'C')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'H')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'E')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'S')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'K')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'U')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'N')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'T')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'A')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'V')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'A')" class="pop-bubble">💖</div>
+
+            <div class="hidden sm:block"></div> <div onclick="popHeart(this, 'N')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'A')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'N')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'N')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, 'U')" class="pop-bubble">💖</div>
+            <div onclick="popHeart(this, '?')" class="pop-bubble">💖</div>
+        </div>
+
+        <div id="pop-message" class="mt-12 opacity-0 transition-all duration-1000 transform translate-y-10 pointer-events-none">
+            <h2 class="text-3xl sm:text-5xl font-bold text-rose-600 tracking-tighter mb-4">PELLI CHESKUNTAVA NANNU?</h2>
+            <p class="cursive text-xl sm:text-2xl text-rose-400 mb-8">My heart has been waiting to ask you this...</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pointer-events-auto">
+                <button onclick="acceptedProposal()" class="proposal-btn bg-rose-500 text-white">
+                    YES! ❤️
+                </button>
+                <button onclick="acceptedProposal()" class="proposal-btn bg-white text-rose-500 border-2 border-rose-500">
+                    YES! (In Pink) 🌸
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="success-message" class="fixed inset-0 z-[5000] hidden flex-col items-center justify-center bg-white/95 backdrop-blur-lg text-center p-6">
+    <div class="animate-bounce text-8xl mb-6">💍</div>
+    <h1 class="cursive text-6xl sm:text-8xl text-rose-600 mb-4">She said YES!</h1>
+    <p class="text-rose-400 text-xl font-light tracking-widest uppercase">Forever Begins Now | 2026</p>
+    <button onclick="closeSuccess()" class="mt-12 text-rose-300 underline text-sm tracking-widest uppercase">View our journey again</button>
+</div>
+
+<style>
+    /* POP BUBBLE STYLES */
+    .pop-bubble {
+        width: 45px; height: 45px;
+        background: white; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.1rem; cursor: pointer;
+        box-shadow: 0 4px 10px rgba(244, 63, 94, 0.1);
+        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        user-select: none; -webkit-tap-highlight-color: transparent;
+    }
+    @media (min-width: 640px) { .pop-bubble { width: 60px; height: 60px; font-size: 1.4rem; } }
+    .pop-bubble:active { transform: scale(0.8); }
+    .pop-bubble.popped {
+        background: #ffe4e6; color: #e11d48;
+        transform: scale(0.85); font-weight: bold;
+        pointer-events: none; font-family: 'Dancing Script', cursive;
+    }
+
+    /* PROPOSAL BUTTONS */
+    .proposal-btn {
+        padding: 1rem 2.5rem; border-radius: 9999px; font-weight: 800;
+        box-shadow: 0 10px 20px rgba(244, 63, 94, 0.2);
+        transition: all 0.3s; cursor: pointer;
+        animation: pulseGlow 2s infinite;
+    }
+    .proposal-btn:hover { transform: scale(1.1); box-shadow: 0 15px 30px rgba(244, 63, 94, 0.3); }
+
+    @keyframes pulseGlow {
+        0% { box-shadow: 0 0 0 0px rgba(251, 113, 133, 0.4); }
+        70% { box-shadow: 0 0 0 20px rgba(251, 113, 133, 0); }
+        100% { box-shadow: 0 0 0 0px rgba(251, 113, 133, 0); }
+    }
+</style>
+
+<script>
+    let poppedCount = 0;
+    const totalToPop = 22; // PELLI(5) + CHESKUNTAVA(11) + NANNU(5) + ?(1)
+
+    function popHeart(el, letter) {
+        if (el.classList.contains('popped')) return;
+        el.classList.add('popped');
+        el.innerText = letter;
+        poppedCount++;
+
+        // Vibrate phone if supported
+        if (navigator.vibrate) navigator.vibrate(15);
+
+        if (poppedCount === totalToPop) {
+            const msg = document.getElementById('pop-message');
+            msg.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+            msg.classList.add('opacity-100', 'translate-y-0');
+            window.scrollTo({ top: msg.offsetTop + 200, behavior: 'smooth' });
+        }
+    }
+
+    function acceptedProposal() {
+        const success = document.getElementById('success-message');
+        success.classList.remove('hidden');
+        success.classList.add('flex');
+
+        // Explosion of 200 items
+        for (let i = 0; i < 200; i++) {
+            setTimeout(() => {
+                const item = document.createElement('div');
+                item.innerHTML = ['❤️', '💖', '💍', '🌸', '✨', '💎'][Math.floor(Math.random() * 6)];
+                item.style.position = 'fixed';
+                item.style.left = Math.random() * 100 + 'vw';
+                item.style.top = '100vh';
+                item.style.fontSize = Math.random() * 30 + 20 + 'px';
+                item.style.zIndex = '6000';
+                item.style.transition = `transform ${Math.random() * 3 + 2}s linear, opacity 2s`;
+                document.body.appendChild(item);
+
+                setTimeout(() => {
+                    item.style.transform = `translateY(-120vh) translateX(${(Math.random() - 0.5) * 400}px) rotate(${Math.random() * 720}deg)`;
+                    item.style.opacity = '0';
+                }, 100);
+                setTimeout(() => item.remove(), 5000);
+            }, i * 15);
+        }
+    }
+
+    function closeSuccess() {
+        document.getElementById('success-message').classList.add('hidden');
+        document.getElementById('success-message').classList.remove('flex');
+    }
+</script>
+
 </body>
 </html>
 
