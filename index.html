@@ -60,6 +60,31 @@
 
         .fountain-heart { position: absolute; pointer-events: none; z-index: 100; font-size: 2rem; animation: fountain 2.5s ease-out forwards; }
         @keyframes fountain { 0% { transform: translate(-50%, 0) scale(0.5); opacity: 1; } 100% { transform: translate(var(--x-end), 500px) scale(0.5) rotate(var(--r)); opacity: 0; } }
+        
+    /* Fountain Heart Animation */
+    .fountain-heart {
+        position: absolute;
+        bottom: 150px; /* Starts from the vase top */
+        left: 50%;
+        pointer-events: none;
+        z-index: 100;
+        font-size: 2rem;
+        animation: fountain 2.5s ease-out forwards;
+    }
+
+    @keyframes fountain {
+        0% {
+            transform: translate(-50%, 0) scale(0.5);
+            opacity: 1;
+        }
+        30% {
+            transform: translate(var(--x), var(--y)) scale(1.2);
+        }
+        100% {
+            transform: translate(var(--x-end), 500px) scale(0.5) rotate(var(--r));
+            opacity: 0;
+        }
+    }
     </style>
 </head>
 <body>
@@ -112,89 +137,6 @@
     
     <button onclick="clearVase()" class="mt-8 text-rose-300 text-xs uppercase tracking-widest hover:text-rose-400">Clear Vase</button>
 </section>
-
-<style>
-    /* Fountain Heart Animation */
-    .fountain-heart {
-        position: absolute;
-        bottom: 150px; /* Starts from the vase top */
-        left: 50%;
-        pointer-events: none;
-        z-index: 100;
-        font-size: 2rem;
-        animation: fountain 2.5s ease-out forwards;
-    }
-
-    @keyframes fountain {
-        0% {
-            transform: translate(-50%, 0) scale(0.5);
-            opacity: 1;
-        }
-        30% {
-            transform: translate(var(--x), var(--y)) scale(1.2);
-        }
-        100% {
-            transform: translate(var(--x-end), 500px) scale(0.5) rotate(var(--r));
-            opacity: 0;
-        }
-    }
-</style>
-
-<script>
-    function addFlower(emoji) {
-        const vase = document.getElementById('vase-flowers');
-        if (vase.children.length >= 15) return; // Limit to keep it neat
-
-        const flower = document.createElement('div');
-        const randomRotate = Math.floor(Math.random() * 40) - 20;
-        
-        flower.innerHTML = emoji;
-        flower.className = "text-5xl animate-bounce";
-        flower.style.transform = `rotate(${randomRotate}deg)`;
-        flower.style.margin = "-10px"; // Overlap for bouquet look
-        
-        vase.appendChild(flower);
-        
-        // Trigger Fountain on the 10th flower
-        if (vase.children.length === 10) {
-            triggerHeartFountain();
-            setTimeout(() => {
-                showNote("A bouquet as beautiful as the one holding the phone! ❤️");
-            }, 500);
-        }
-    }
-
-    function triggerHeartFountain() {
-        const container = document.body;
-        const heartEmojis = ['❤️', '💖', '💝', '💕', '🌸', '✨'];
-
-        for (let i = 0; i < 40; i++) {
-            const heart = document.createElement('div');
-            heart.className = 'fountain-heart';
-            heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-            
-            // Random trajectory logic
-            const x = (Math.random() - 0.5) * 400; // Wide spray
-            const y = -Math.random() * 500 - 200;  // Upward burst
-            const xEnd = x + (Math.random() - 0.5) * 200;
-            const r = Math.random() * 360;
-
-            heart.style.setProperty('--x', `${x}px`);
-            heart.style.setProperty('--y', `${y}px`);
-            heart.style.setProperty('--x-end', `${xEnd}px`);
-            heart.style.setProperty('--r', `${r}deg`);
-
-            container.appendChild(heart);
-            
-            // Clean up after animation
-            setTimeout(() => heart.remove(), 2500);
-        }
-    }
-
-    function clearVase() {
-        document.getElementById('vase-flowers').innerHTML = '';
-    }
-</script>
 
     </section>
 
@@ -373,6 +315,61 @@
             setTimeout(() => p.remove(), 10000);
         }
         setInterval(createPetal, 600);
+        
+    function addFlower(emoji) {
+        const vase = document.getElementById('vase-flowers');
+        if (vase.children.length >= 15) return; // Limit to keep it neat
+
+        const flower = document.createElement('div');
+        const randomRotate = Math.floor(Math.random() * 40) - 20;
+        
+        flower.innerHTML = emoji;
+        flower.className = "text-5xl animate-bounce";
+        flower.style.transform = `rotate(${randomRotate}deg)`;
+        flower.style.margin = "-10px"; // Overlap for bouquet look
+        
+        vase.appendChild(flower);
+        
+        // Trigger Fountain on the 10th flower
+        if (vase.children.length === 10) {
+            triggerHeartFountain();
+            setTimeout(() => {
+                showNote("A bouquet as beautiful as the one holding the phone! ❤️");
+            }, 500);
+        }
+    }
+
+    function triggerHeartFountain() {
+        const container = document.body;
+        const heartEmojis = ['❤️', '💖', '💝', '💕', '🌸', '✨'];
+
+        for (let i = 0; i < 40; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'fountain-heart';
+            heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            
+            // Random trajectory logic
+            const x = (Math.random() - 0.5) * 400; // Wide spray
+            const y = -Math.random() * 500 - 200;  // Upward burst
+            const xEnd = x + (Math.random() - 0.5) * 200;
+            const r = Math.random() * 360;
+
+            heart.style.setProperty('--x', `${x}px`);
+            heart.style.setProperty('--y', `${y}px`);
+            heart.style.setProperty('--x-end', `${xEnd}px`);
+            heart.style.setProperty('--r', `${r}deg`);
+
+            container.appendChild(heart);
+            
+            // Clean up after animation
+            setTimeout(() => heart.remove(), 2500);
+        }
+    }
+
+    function clearVase() {
+        document.getElementById('vase-flowers').innerHTML = '';
+    }
+
     </script>
 </body>
 </html>
