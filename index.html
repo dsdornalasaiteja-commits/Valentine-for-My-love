@@ -66,6 +66,22 @@
 /* This gives each photo a slightly different tilt */
 .polaroid:nth-child(even) { --r: -3deg; }
 .polaroid:nth-child(odd) { --r: 3deg; }
+#the-infinity-heart.bloomed {
+    transform: scale(0) rotate(360deg);
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+}
+
+.final-sparkle {
+    position: absolute;
+    animation: floatUp 3s linear forwards;
+    z-index: 5;
+}
 
     </style>
 </head>
@@ -276,6 +292,32 @@
             <div class="polaroid"><img src="Pic2.jpg"><p class="cursive">Forever to go</p></div>
         </div>
     </section>
+<section class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#fff5f5] to-[#ffe4e6] relative overflow-hidden">
+    
+    <div id="final-heart-container" class="relative z-10 text-center">
+        <div onclick="bloomFinalMessage()" id="the-infinity-heart" class="text-8xl cursor-pointer hover:scale-110 transition-transform duration-500 filter drop-shadow-[0_0_15px_rgba(251,113,133,0.5)]">
+            💝
+        </div>
+        <p id="final-instruction" class="cursive text-2xl text-rose-400 mt-6 animate-pulse">Touch the heart for one last thing...</p>
+    </div>
+
+    <div id="final-letter" class="hidden opacity-0 transition-all duration-1000 transform translate-y-10 max-w-lg text-center px-6">
+        <h2 class="cursive text-6xl text-rose-500 mb-8">Beyond the Stars</h2>
+        <div class="space-y-6 text-xl text-rose-800 leading-relaxed font-light">
+            <p>Every story has chapters, but ours is a book that I never want to put down.</p>
+            <p>You are the melody in my silence and the light in my darkest nights. Thank you for choosing me every day since 24.10.2023.</p>
+            <p class="text-3xl">✨</p>
+            <p class="cursive text-4xl">I loved you then, I love you still, <br> I always have, and I always will.</p>
+        </div>
+        
+        <div class="mt-12 opacity-70">
+            <p class="uppercase tracking-[0.5em] text-xs text-rose-400">Infinity & Beyond</p>
+            <div class="h-px w-32 bg-rose-300 mx-auto mt-4 shadow-[0_0_8px_#fda4af]"></div>
+        </div>
+    </div>
+
+    <div id="sparkle-overlay" class="absolute inset-0 pointer-events-none"></div>
+</section>
 
     <script>
         const music = document.getElementById('bg-music');
@@ -369,6 +411,39 @@ function createPetal() {
     setTimeout(() => petal.remove(), 10000);
 }
 setInterval(createPetal, 500);
+function bloomFinalMessage() {
+    const heart = document.getElementById('the-infinity-heart');
+    const instruction = document.getElementById('final-instruction');
+    const letter = document.getElementById('final-letter');
+    const overlay = document.getElementById('sparkle-overlay');
+
+    // 1. Shrink the heart
+    heart.classList.add('bloomed');
+    instruction.style.opacity = '0';
+
+    // 2. Create an explosion of sparkles
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = ['✨', '💖', '🌸', '🤍'][Math.floor(Math.random() * 4)];
+            sparkle.className = 'final-sparkle text-2xl';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = '90vh';
+            sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            overlay.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 3000);
+        }, i * 50);
+    }
+
+    // 3. Show the final letter
+    setTimeout(() => {
+        letter.classList.remove('hidden');
+        setTimeout(() => {
+            letter.style.opacity = '1';
+            letter.style.transform = 'translateY(0)';
+        }, 100);
+    }, 800);
+}
 
     </script>
 </body>
