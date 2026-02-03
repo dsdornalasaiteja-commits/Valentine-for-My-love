@@ -4,16 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Favorite Person ✨</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500;700&display=swap');
-        
-        body { font-family: 'Quicksand', sans-serif; background: #fff5f5; scroll-behavior: smooth; overflow-x: hidden; margin: 0; }
-        .cursive { font-family: 'Dancing Script', cursive; }
+        /* --- UNIVERSAL FONT FIX (Forces Tablet Compliance) --- */
+        * {
+            font-family: 'Quicksand', sans-serif !important;
+        }
+
+        .cursive, h1, h2, h3, .pop-bubble.popped, #pop-message h2 {
+            font-family: 'Dancing Script', cursive !important;
+        }
+
+        body { background: #fff5f5; scroll-behavior: smooth; overflow-x: hidden; margin: 0; }
 
         /* --- ENVELOPE STYLING --- */
         .envelope-wrapper { background: #fdf2f2; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 1s ease-in-out; z-index: 100; position: fixed; inset: 0; }
@@ -23,115 +31,47 @@
         .heart-seal { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-size: 40px; z-index: 4; transition: opacity 0.3s; }
         .envelope.open .heart-seal { opacity: 0; }
 
-        /* --- STICKERS --- */
+        /* --- STICKERS & DECORATION --- */
         .her-sticker { position: fixed; object-fit: contain; pointer-events: none; z-index: 10; opacity: 0.9; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); animation: floatSticker 5s ease-in-out infinite alternate; }
         @keyframes floatSticker { 0% { transform: translate(0, 0) rotate(-5deg); } 100% { transform: translate(15px, 30px) rotate(5deg); } }
         
-        /* --- POPUP --- */
+        .petal { position: fixed; top: -5%; color: #ffc1cc; user-select: none; pointer-events: none; z-index: 0; animation: fall linear forwards; }
+        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+
+        /* --- COMPONENTS --- */
         #love-popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 200; width: 320px; }
         .glass-note { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border: 2px solid white; border-radius: 30px; padding: 35px; text-align: center; box-shadow: 0 25px 60px rgba(225, 29, 72, 0.15); }
-
-        /* --- POLAROIDS --- */
+        
         .polaroid { background: white; padding: 12px 12px 35px 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); transition: transform 0.3s ease; border-radius: 2px; break-inside: avoid; margin-bottom: 1.5rem; border: 1px solid #fef2f2; display: flex; flex-direction: column; align-items: center; }
         .polaroid img { width: 100%; border-radius: 2px; margin-bottom: 10px; }
-        .polaroid p { margin: 0; color: #9ca3af; font-size: 1.25rem; }
-        .counter-box { 
-    background: rgba(255, 255, 255, 0.8); 
-    padding: 15px; 
-    border-radius: 20px; 
-    min-width: 80px; 
-    border: 1px solid white; 
-    box-shadow: 0 10px 20px rgba(244, 63, 94, 0.05); 
-}
-@keyframes fall {
-    0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-}
+        .polaroid:hover { transform: rotate(var(--r, 2deg)) scale(1.05); z-index: 50; }
+        .polaroid:nth-child(even) { --r: -3deg; }
+        .polaroid:nth-child(odd) { --r: 3deg; }
 
-.petal {
-    position: fixed;
-    top: -5%;
-    color: #ffc1cc;
-    user-select: none;
-    pointer-events: none;
-    z-index: 0;
-    animation: fall linear forwards;
-}
-.bg-\[\#fff9f0\] {
-    background-image: radial-gradient(#f2e8d5 1px, transparent 1px);
-    background-size: 20px 20px;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.05), 0 20px 30px rgba(0,0,0,0.1);
-}
-.polaroid:hover {
-    transform: rotate(var(--r, 2deg)) scale(1.05);
-    box-shadow: 0 15px 30px rgba(244, 63, 94, 0.2);
-    z-index: 50;
-}
-/* This gives each photo a slightly different tilt */
-.polaroid:nth-child(even) { --r: -3deg; }
-.polaroid:nth-child(odd) { --r: 3deg; }
-#the-infinity-heart.bloomed {
-    transform: scale(0) rotate(360deg);
-    opacity: 0;
-    pointer-events: none;
-}
+        .counter-box { background: rgba(255, 255, 255, 0.8); padding: 15px; border-radius: 20px; min-width: 80px; border: 1px solid white; box-shadow: 0 10px 20px rgba(244, 63, 94, 0.05); }
 
-@keyframes floatUp {
-    0% { transform: translateY(0) scale(1); opacity: 1; }
-    100% { transform: translateY(-100vh) scale(0); opacity: 0; }
-}
+        /* --- POP HEART GAME STYLES --- */
+        .pop-bubble { width: 50px; height: 50px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.1); transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @media (min-width: 640px) { .pop-bubble { width: 65px; height: 65px; font-size: 1.5rem; } }
+        .pop-bubble.popped { background: #ffe4e6; color: #e11d48; transform: scale(0.85); font-weight: bold; pointer-events: none; }
 
-.final-sparkle {
-    position: absolute;
-    animation: floatUp 3s linear forwards;
-    z-index: 5;
-}
-.falling-heart {
-    position: fixed;
-    top: -10%;
-    cursor: pointer;
-    z-index: 100;
-    font-size: 2rem;
-    animation: fall linear forwards;
-    transition: transform 0.2s;
-}
-.falling-heart:hover { transform: scale(1.5); }
-/* For the "Cursive" lovely text */
-.cursive {
-    font-family: 'Dancing Script', cursive !important;
-}
+        .proposal-btn { padding: 1rem 2.5rem; border-radius: 9999px; font-weight: 800; transition: all 0.3s; cursor: pointer; animation: pulseGlow 2s infinite; }
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0px rgba(251, 113, 133, 0.4); } 70% { box-shadow: 0 0 0 20px rgba(251, 113, 133, 0); } 100% { box-shadow: 0 0 0 0px rgba(251, 113, 133, 0); } }
 
-/* For the regular clean text (the day counter, etc.) */
-body, p, span {
-    font-family: 'Quicksand', sans-serif;
-}
-
+        .fountain-heart { position: absolute; pointer-events: none; z-index: 100; font-size: 2rem; animation: fountain 2.5s ease-out forwards; }
+        @keyframes fountain { 0% { transform: translate(-50%, 0) scale(0.5); opacity: 1; } 100% { transform: translate(var(--x-end), 500px) scale(0.5) rotate(var(--r)); opacity: 0; } }
     </style>
 </head>
 <body>
 
-    <div id="love-popup">
-        <div class="glass-note">
-            <p id="popup-text" class="cursive text-3xl text-rose-500 mb-6"></p>
-            <button onclick="closeNote()" class="text-xs uppercase tracking-widest text-rose-300 font-bold border-t pt-4 w-full">Close with love</button>
-        </div>
-    </div>
-
-    <audio id="bg-music" loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bg-music" loop><source src="music.mp3" type="audio/mpeg"></audio>
 
     <img src="her1.png" class="her-sticker" style="top: 5%; left: 2%; width: 100px;">
     <img src="her2.png" class="her-sticker" style="top: 12%; right: 3%; width: 90px;">
     <img src="her3.png" class="her-sticker" style="bottom: 8%; left: 4%; width: 110px;">
-    
     <img src="her4.png" class="her-sticker" style="bottom: 15%; right: 10%; width: 85px;"> 
-    
     <img src="her5.png" class="her-sticker" style="top: 35%; left: 1%; width: 85px;">
     <img src="her6.png" class="her-sticker" style="top: 45%; right: 1%; width: 95px;">
-    <img src="her7.png" class="her-sticker" style="bottom: 45%; left: 2%; width: 80px;">
-    <img src="her8.png" class="her-sticker" style="top: 25%; left: 15%; width: 70px; opacity: 0.6;">
-    <img src="her9.png" class="her-sticker" style="bottom: 20%; left: 10%; width: 85px;">
     <img src="her10.png" class="her-sticker" style="bottom: 5%; left: 45%; width: 100px;">
 
     <section id="envelope-screen" class="envelope-wrapper">
@@ -152,197 +92,98 @@ body, p, span {
         </div>
         <p class="mt-12 text-rose-300 animate-bounce text-lg">Scroll for our story ↓</p>
     </section>
-<section class="max-w-4xl mx-auto py-20 px-6 text-center relative">
-    <h2 class="cursive text-5xl text-rose-400 mb-10">Build Your Bouquet 💐</h2>
-    <p class="text-rose-300 mb-8 italic text-lg">Pick 10 flowers to see what happens...</p>
-    
-    <div class="flex justify-center gap-6 mb-12 text-4xl">
-        <button onclick="addFlower('🌹')" class="hover:scale-125 transition-transform cursor-pointer">🌹</button>
-        <button onclick="addFlower('🌷')" class="hover:scale-125 transition-transform cursor-pointer">🌷</button>
-        <button onclick="addFlower('🌻')" class="hover:scale-125 transition-transform cursor-pointer">🌻</button>
-        <button onclick="addFlower('🌸')" class="hover:scale-125 transition-transform cursor-pointer">🌸</button>
-        <button onclick="addFlower('🌿')" class="hover:scale-125 transition-transform cursor-pointer">🌿</button>
-    </div>
 
-    <div class="relative mx-auto w-64 h-80 bg-white/40 backdrop-blur-sm rounded-b-[100px] border-x-2 border-b-4 border-white/60 shadow-xl flex items-end justify-center">
-        <div id="vase-flowers" class="relative w-full h-full flex flex-wrap-reverse justify-center items-end p-6 pb-12">
+    <section class="max-w-4xl mx-auto py-20 px-6 text-center relative">
+        <h2 class="cursive text-5xl text-rose-400 mb-10">Build Your Bouquet 💐</h2>
+        <div class="flex justify-center gap-6 mb-12 text-4xl">
+            <button onclick="addFlower('🌹')" class="hover:scale-125 transition-transform">🌹</button>
+            <button onclick="addFlower('🌷')" class="hover:scale-125 transition-transform">🌷</button>
+            <button onclick="addFlower('🌻')" class="hover:scale-125 transition-transform">🌻</button>
+            <button onclick="addFlower('🌸')" class="hover:scale-125 transition-transform">🌸</button>
+        </div>
+        <div class="relative mx-auto w-64 h-80 bg-white/40 backdrop-blur-sm rounded-b-[100px] border-x-2 border-b-4 border-white/60 shadow-xl flex items-end justify-center">
+            <div id="vase-flowers" class="relative w-full h-full flex flex-wrap-reverse justify-center items-end p-6 pb-12"></div>
+        </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto py-16 px-6 text-center">
+        <div class="bg-white/60 backdrop-blur-md rounded-[2rem] p-10 border border-white shadow-xl">
+            <h2 class="cursive text-4xl text-rose-500 mb-6">Time spent loving you...</h2>
+            <div class="flex flex-wrap justify-center gap-4 text-rose-600">
+                <div class="counter-box"><span id="days" class="text-3xl font-bold block">00</span><span class="text-xs text-gray-400">Days</span></div>
+                <div class="counter-box"><span id="hours" class="text-3xl font-bold block">00</span><span class="text-xs text-gray-400">Hours</span></div>
+                <div class="counter-box"><span id="minutes" class="text-3xl font-bold block">00</span><span class="text-xs text-gray-400">Mins</span></div>
+                <div class="counter-box"><span id="seconds" class="text-3xl font-bold block">00</span><span class="text-xs text-gray-400">Secs</span></div>
             </div>
-        <div class="absolute bottom-0 w-full h-24 bg-rose-200/20 rounded-b-[90px]"></div>
-    </div>
-    
-    <button onclick="clearVase()" class="mt-8 text-rose-300 text-xs uppercase tracking-widest hover:text-rose-400">Clear Vase</button>
-</section>
-
-<style>
-    /* Fountain Heart Animation */
-    .fountain-heart {
-        position: absolute;
-        bottom: 150px; /* Starts from the vase top */
-        left: 50%;
-        pointer-events: none;
-        z-index: 100;
-        font-size: 2rem;
-        animation: fountain 2.5s ease-out forwards;
-    }
-
-    @keyframes fountain {
-        0% {
-            transform: translate(-50%, 0) scale(0.5);
-            opacity: 1;
-        }
-        30% {
-            transform: translate(var(--x), var(--y)) scale(1.2);
-        }
-        100% {
-            transform: translate(var(--x-end), 500px) scale(0.5) rotate(var(--r));
-            opacity: 0;
-        }
-    }
-</style>
-
-<script>
-    function addFlower(emoji) {
-        const vase = document.getElementById('vase-flowers');
-        if (vase.children.length >= 15) return; // Limit to keep it neat
-
-        const flower = document.createElement('div');
-        const randomRotate = Math.floor(Math.random() * 40) - 20;
-        
-        flower.innerHTML = emoji;
-        flower.className = "text-5xl animate-bounce";
-        flower.style.transform = `rotate(${randomRotate}deg)`;
-        flower.style.margin = "-10px"; // Overlap for bouquet look
-        
-        vase.appendChild(flower);
-        
-        // Trigger Fountain on the 10th flower
-        if (vase.children.length === 10) {
-            triggerHeartFountain();
-            setTimeout(() => {
-                showNote("A bouquet as beautiful as the one holding the phone! ❤️");
-            }, 500);
-        }
-    }
-
-    function triggerHeartFountain() {
-        const container = document.body;
-        const heartEmojis = ['❤️', '💖', '💝', '💕', '🌸', '✨'];
-
-        for (let i = 0; i < 40; i++) {
-            const heart = document.createElement('div');
-            heart.className = 'fountain-heart';
-            heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-            
-            // Random trajectory logic
-            const x = (Math.random() - 0.5) * 400; // Wide spray
-            const y = -Math.random() * 500 - 200;  // Upward burst
-            const xEnd = x + (Math.random() - 0.5) * 200;
-            const r = Math.random() * 360;
-
-            heart.style.setProperty('--x', `${x}px`);
-            heart.style.setProperty('--y', `${y}px`);
-            heart.style.setProperty('--x-end', `${xEnd}px`);
-            heart.style.setProperty('--r', `${r}deg`);
-
-            container.appendChild(heart);
-            
-            // Clean up after animation
-            setTimeout(() => heart.remove(), 2500);
-        }
-    }
-
-    function clearVase() {
-        document.getElementById('vase-flowers').innerHTML = '';
-    }
-</script>
-<section class="max-w-4xl mx-auto py-16 px-6 text-center">
-    <div class="bg-white/60 backdrop-blur-md rounded-[2rem] p-10 border border-white shadow-xl relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-1 bg-rose-100">
-            <div class="h-full bg-rose-400 animate-pulse" style="width: 100%;"></div>
         </div>
-        <h2 class="cursive text-4xl text-rose-500 mb-6">Time spent loving you...</h2>
-        <div class="flex flex-wrap justify-center gap-4">
-            <div class="counter-box"><span id="days" class="text-3xl font-bold text-rose-600 block">00</span><span class="text-xs text-gray-400">Days</span></div>
-            <div class="counter-box"><span id="hours" class="text-3xl font-bold text-rose-600 block">00</span><span class="text-xs text-gray-400">Hours</span></div>
-            <div class="counter-box"><span id="minutes" class="text-3xl font-bold text-rose-600 block">00</span><span class="text-xs text-gray-400">Mins</span></div>
-            <div class="counter-box"><span id="seconds" class="text-3xl font-bold text-rose-600 block">00</span><span class="text-xs text-gray-400">Secs</span></div>
-        </div>
-        <p class="mt-6 text-gray-400 text-sm italic">Since October 24, 2023 🩺</p>
-    </div>
-</section>
-<section class="max-w-2xl mx-auto py-20 px-6">
-    <div class="bg-[#fff9f0] p-10 shadow-inner border-y-8 border-rose-200 rounded-lg relative">
-        <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-4xl">📜</div>
-        
-        <h2 class="cursive text-4xl text-rose-800 mb-6 text-center underline decoration-rose-200">A Note for You</h2>
-        
-        <div class="cursive text-2xl text-rose-900 leading-relaxed space-y-4">
-            <p>My dearest,</p>
-            <p>Ever since October 24th, my life has felt like a beautiful dream. You aren't just my partner; you're my peace, my favorite person, and my greatest blessing.</p>
-            <p>As I study medicine and learn about how the heart works, I realize that mine only beats this steadily because of you.</p>
-            <p>Thank you for being you. ❤️</p>
-        </div>
-        
-        <div class="text-right mt-10">
-            <p class="cursive text-3xl text-rose-700">— Your Favorite Person</p>
-        </div>
-    </div>
-</section>
-<section class="max-w-4xl mx-auto py-16 text-center">
-    <h3 class="cursive text-4xl text-rose-400 mb-8">Tap a star to see a wish... ✨</h3>
-    <div class="flex justify-center gap-10 flex-wrap">
-        <div onclick="showNote('I wish for a lifetime of morning cuddles with you.')" class="cursor-pointer hover:scale-110 transition-transform text-5xl">✨</div>
-        <div onclick="showNote('I wish to travel the whole world holding your hand.')" class="cursor-pointer hover:scale-110 transition-transform text-5xl">🌟</div>
-        <div onclick="showNote('I wish to always be the reason behind your smile and success .')" class="cursor-pointer hover:scale-110 transition-transform text-5xl">✨</div>
-        <div onclick="showNote('I wish for our home to be filled with laughter and love.')" class="cursor-pointer hover:scale-110 transition-transform text-5xl">🌟</div>
-    </div>
-</section>
+    </section>
 
     <section class="max-w-6xl mx-auto py-24 px-6">
         <h2 class="cursive text-6xl text-rose-400 text-center mb-20">Our Beautiful Story</h2>
         <div class="columns-1 sm:columns-2 lg:columns-3 gap-8">
             <div class="polaroid"><img src="Pic1.jpg"><p class="cursive">Where it started</p></div>
-            <div class="polaroid" onclick="showNote('You look so cute here! ✨')"><img src="Pic3.jpg"><p class="cursive">First Date ✨</p></div>
+            <div class="polaroid"><img src="Pic3.jpg"><p class="cursive">First Date ✨</p></div>
             <div class="polaroid"><img src="Pic4.jpg"><p class="cursive">Pure Happiness</p></div>
             <div class="polaroid"><img src="Pic5.jpg"><p class="cursive">Our Adventure</p></div>
-            <div class="polaroid"><img src="Pic6.jpg"><p class="cursive">My Favorite View</p></div>
-            <div class="polaroid"><img src="Pic7.jpg"><p class="cursive">Golden Hour</p></div>
-            <div class="polaroid"><img src="Pic8.jpg"><p class="cursive">Silly Moments</p></div>
-            <div class="polaroid"><img src="Pic9.jpg"><p class="cursive">Little Things</p></div>
-            <div class="polaroid"><img src="Pic10.jpg"><p class="cursive">Sunny Days</p></div>
-            <div class="polaroid"><img src="Pic11.jpg"><p class="cursive">That Smile</p></div>
             <div class="polaroid"><img src="Pic12.jpg"><p class="cursive">Everything</p></div>
             <div class="polaroid"><img src="Pic2.jpg"><p class="cursive">Forever to go</p></div>
         </div>
     </section>
-<section class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#fff5f5] to-[#ffe4e6] relative overflow-hidden">
-    
-    <div id="final-heart-container" class="relative z-10 text-center">
-        <div onclick="bloomFinalMessage()" id="the-infinity-heart" class="text-8xl cursor-pointer hover:scale-110 transition-transform duration-500 filter drop-shadow-[0_0_15px_rgba(251,113,133,0.5)]">
-            💝
+
+    <section class="max-w-2xl mx-auto py-16 px-6 text-center pb-32">
+        <div class="bg-white/40 backdrop-blur-md p-10 rounded-[40px] border border-white/60 shadow-2xl">
+            <h3 class="cursive text-3xl text-rose-400 mb-8">Pop the hearts for a special question... 🫧</h3>
+            <div class="grid grid-cols-4 sm:grid-cols-6 gap-3 justify-items-center">
+                <div onclick="popHeart(this, 'P')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'E')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'L')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'L')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'I')" class="pop-bubble">💖</div>
+                <div class="hidden sm:block"></div>
+                <div onclick="popHeart(this, 'C')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'H')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'E')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'S')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'K')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'U')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'N')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'T')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'A')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'V')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'A')" class="pop-bubble">💖</div>
+                <div class="hidden sm:block"></div>
+                <div onclick="popHeart(this, 'N')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'A')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'N')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'N')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, 'U')" class="pop-bubble">💖</div>
+                <div onclick="popHeart(this, '?')" class="pop-bubble">💖</div>
+            </div>
+            <div id="pop-message" class="mt-12 opacity-0 transition-all duration-1000 transform translate-y-10 pointer-events-none">
+                <h2 class="text-4xl font-bold text-rose-600 mb-4">PELLI CHESKUNTAVA NANNU?</h2>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pointer-events-auto">
+                    <button onclick="acceptedProposal()" class="proposal-btn bg-rose-500 text-white">YES! ❤️</button>
+                    <button onclick="acceptedProposal()" class="proposal-btn bg-white text-rose-500 border-2 border-rose-500">YES! (In Pink) 🌸</button>
+                </div>
+            </div>
         </div>
-        <p id="final-instruction" class="cursive text-2xl text-rose-400 mt-6 animate-pulse">Touch the heart for one last thing...</p>
+    </section>
+
+    <div id="success-message" class="fixed inset-0 z-[5000] hidden flex-col items-center justify-center bg-white/95 backdrop-blur-lg text-center">
+        <h1 class="cursive text-7xl text-rose-600 animate-bounce">She said YES! 💍</h1>
+        <p class="text-rose-400 text-xl mt-4 uppercase tracking-widest">Forever Begins Now</p>
+        <button onclick="location.reload()" class="mt-10 text-rose-300 underline">Restart Journey</button>
     </div>
 
-    <div id="final-letter" class="hidden opacity-0 transition-all duration-1000 transform translate-y-10 max-w-lg text-center px-6">
-        <h2 class="cursive text-6xl text-rose-500 mb-8">Beyond the Stars</h2>
-        <div class="space-y-6 text-xl text-rose-800 leading-relaxed font-light">
-            <p>Every story has chapters, but ours is a book that I never want to put down.</p>
-            <p>You are the melody in my silence and the light in my darkest nights. Thank you for choosing me every day since 24.10.2023.</p>
-            <p class="text-3xl">✨</p>
-            <p class="cursive text-4xl">I loved you then, I love you still, <br> I always have, and I always will.</p>
-        </div>
-        
-        <div class="mt-12 opacity-70">
-            <p class="uppercase tracking-[0.5em] text-xs text-rose-400">Infinity & Beyond</p>
-            <div class="h-px w-32 bg-rose-300 mx-auto mt-4 shadow-[0_0_8px_#fda4af]"></div>
+    <div id="love-popup">
+        <div class="glass-note">
+            <p id="popup-text" class="cursive text-3xl text-rose-500 mb-6"></p>
+            <button onclick="closeNote()" class="text-xs uppercase tracking-widest text-rose-300 font-bold border-t pt-4 w-full">Close with love</button>
         </div>
     </div>
-
-    <div id="sparkle-overlay" class="absolute inset-0 pointer-events-none"></div>
-</section>
 
     <script>
+        // 1. GLOBAL LOGIC
         const music = document.getElementById('bg-music');
         const popup = document.getElementById('love-popup');
         const popupText = document.getElementById('popup-text');
@@ -350,292 +191,101 @@ body, p, span {
         function openEnvelope() {
             document.getElementById('envelope').classList.add('open');
             music.play().catch(e => console.log("Music play blocked"));
-            
             setTimeout(() => {
-                const screen = document.getElementById('envelope-screen');
-                const proposal = document.getElementById('proposal-section');
-                
-                screen.style.opacity = '0';
-                proposal.classList.remove('hidden');
-                
-                setTimeout(() => {
-                    screen.style.display = 'none';
-                    proposal.style.opacity = '1';
-                }, 1000);
-            }, 800);
+                document.getElementById('envelope-screen').style.display = 'none';
+                const prop = document.getElementById('proposal-section');
+                prop.classList.remove('hidden');
+                setTimeout(() => prop.style.opacity = '1', 100);
+            }, 1000);
         }
 
-        function showNote(msg) {
-            popupText.innerText = msg;
-            popup.style.display = 'block';
-        }
-
+        function showNote(msg) { popupText.innerText = msg; popup.style.display = 'block'; }
         function closeNote() { popup.style.display = 'none'; }
 
+        // 2. VALENTINE BUTTONS
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         let yesScale = 1;
-
         noBtn.addEventListener('click', () => {
-            yesScale += 0.5;
+            yesScale += 0.3;
             yesBtn.style.transform = `scale(${yesScale})`;
             noBtn.innerText = "Try again? 🥺";
         });
-
         yesBtn.addEventListener('click', () => {
             document.getElementById('headline').innerText = "You made my year! ❤️";
             document.getElementById('main-img').src = "Pic2.jpg";
             document.getElementById('btn-group').innerHTML = `<p class="cursive text-4xl text-rose-400 animate-bounce mt-4">See you on the 14th! ✨</p>`;
         });
-        const startDate = new Date(2023, 9, 24); // Anniversary: 24/10/2023
 
-function updateCounter() {
-    const now = new Date();
-    const diff = now - startDate;
+        // 3. BOUQUET
+        function addFlower(emoji) {
+            const vase = document.getElementById('vase-flowers');
+            const f = document.createElement('div');
+            f.innerHTML = emoji;
+            f.className = "text-5xl animate-bounce";
+            f.style.margin = "-10px";
+            vase.appendChild(f);
+            if (vase.children.length === 10) triggerHeartFountain();
+        }
 
-    document.getElementById('days').innerText = Math.floor(diff / 86400000);
-    document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24);
-    document.getElementById('minutes').innerText = Math.floor((diff / 60000) % 60);
-    document.getElementById('seconds').innerText = Math.floor((diff / 1000) % 60);
-}
+        function triggerHeartFountain() {
+            for (let i = 0; i < 30; i++) {
+                const h = document.createElement('div');
+                h.className = 'fountain-heart';
+                h.innerHTML = '💖';
+                h.style.left = '50%';
+                h.style.setProperty('--x-end', `${(Math.random()-0.5)*400}px`);
+                h.style.setProperty('--r', `${Math.random()*360}deg`);
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 2500);
+            }
+        }
 
-// Run the clock every second
-setInterval(updateCounter, 1000);
-updateCounter(); 
-document.addEventListener('mousemove', function(e) {
-    const heart = document.createElement('div');
-    heart.innerHTML = '❤️';
-    heart.style.position = 'fixed';
-    heart.style.left = e.clientX + 'px';
-    heart.style.top = e.clientY + 'px';
-    heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-    heart.style.pointerEvents = 'none';
-    heart.style.opacity = '1';
-    heart.style.zIndex = '1000';
-    heart.style.transition = 'all 1s ease-out';
-    
-    document.body.appendChild(heart);
+        // 4. COUNTER
+        const startDate = new Date(2023, 9, 24);
+        function updateCounter() {
+            const diff = new Date() - startDate;
+            document.getElementById('days').innerText = Math.floor(diff / 86400000);
+            document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24);
+            document.getElementById('minutes').innerText = Math.floor((diff / 60000) % 60);
+            document.getElementById('seconds').innerText = Math.floor((diff / 1000) % 60);
+        }
+        setInterval(updateCounter, 1000);
 
-    setTimeout(() => {
-        heart.style.transform = `translateY(-50px) scale(1.5)`;
-        heart.style.opacity = '0';
-    }, 50);
+        // 5. PELLI PROPOSAL
+        let poppedCount = 0;
+        function popHeart(el, letter) {
+            if (el.classList.contains('popped')) return;
+            el.classList.add('popped');
+            el.innerText = letter;
+            poppedCount++;
+            if (poppedCount === 22) {
+                const m = document.getElementById('pop-message');
+                m.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                m.classList.add('opacity-100', 'translate-y-0');
+            }
+        }
 
-    setTimeout(() => heart.remove(), 1000);
-});
-function createPetal() {
-    const petal = document.createElement('div');
-    petal.innerHTML = '🌸';
-    petal.className = 'petal';
-    petal.style.left = Math.random() * 100 + 'vw';
-    petal.style.animationDuration = Math.random() * 3 + 7 + 's';
-    petal.style.fontSize = Math.random() * 10 + 10 + 'px';
-    document.body.appendChild(petal);
-    setTimeout(() => petal.remove(), 10000);
-}
-setInterval(createPetal, 500);
-function bloomFinalMessage() {
-    const heart = document.getElementById('the-infinity-heart');
-    const instruction = document.getElementById('final-instruction');
-    const letter = document.getElementById('final-letter');
-    const overlay = document.getElementById('sparkle-overlay');
+        function acceptedProposal() {
+            document.getElementById('success-message').classList.remove('hidden');
+            document.getElementById('success-message').classList.add('flex');
+        }
 
-    // 1. Shrink the heart
-    heart.classList.add('bloomed');
-    instruction.style.opacity = '0';
-
-    // 2. Create an explosion of sparkles
-    for (let i = 0; i < 50; i++) {
-        setTimeout(() => {
-            const sparkle = document.createElement('div');
-            sparkle.innerHTML = ['✨', '💖', '🌸', '🤍'][Math.floor(Math.random() * 4)];
-            sparkle.className = 'final-sparkle text-2xl';
-            sparkle.style.left = Math.random() * 100 + 'vw';
-            sparkle.style.top = '90vh';
-            sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
-            overlay.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 3000);
-        }, i * 50);
-    }
-
-    // 3. Show the final letter
-    setTimeout(() => {
-        letter.classList.remove('hidden');
-        setTimeout(() => {
-            letter.style.opacity = '1';
-            letter.style.transform = 'translateY(0)';
-        }, 100);
-    }, 800);
-}
-function createGameHeart() {
-    const heart = document.createElement('div');
-    const compliments = ["You're Cute!", "My Love ❤️", "Stay Mine", "Beautiful ✨", "My Queen"];
-    
-    heart.innerHTML = '💖';
-    heart.className = 'falling-heart';
-    heart.style.left = Math.random() * 90 + 'vw';
-    heart.style.animationDuration = Math.random() * 3 + 4 + 's';
-    
-    // The "Game" part
-    heart.onclick = function() {
-        const msg = compliments[Math.floor(Math.random() * compliments.length)];
-        this.innerHTML = `<span class="bg-white px-2 py-1 rounded-full text-xs text-rose-500 shadow-lg">${msg}</span>`;
-        setTimeout(() => this.remove(), 1000);
-    };
-
-    document.body.appendChild(heart);
-    setTimeout(() => { if(heart.parentNode) heart.remove(); }, 6000);
-}
-setInterval(createGameHeart, 1500);
-
+        // 6. DECORATIONS (Petals)
+        function createPetal() {
+            const p = document.createElement('div');
+            p.innerHTML = '🌸'; p.className = 'petal';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = Math.random() * 5 + 5 + 's';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 10000);
+        }
+        setInterval(createPetal, 600);
     </script>
-    <section class="max-w-2xl mx-auto py-16 px-6 text-center">
-    <div class="bg-white/40 backdrop-blur-md p-6 sm:p-10 rounded-[40px] border border-white/60 shadow-2xl relative overflow-hidden">
-        
-        <h3 class="cursive text-3xl text-rose-400 mb-8">Pop the hearts for a special question... 🫧</h3>
-        
-        <div class="grid grid-cols-4 sm:grid-cols-6 gap-3 justify-items-center">
-            <div onclick="popHeart(this, 'P')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'E')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'L')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'L')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'I')" class="pop-bubble">💖</div>
-            
-            <div class="hidden sm:block"></div> <div onclick="popHeart(this, 'C')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'H')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'E')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'S')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'K')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'U')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'N')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'T')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'A')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'V')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'A')" class="pop-bubble">💖</div>
-
-            <div class="hidden sm:block"></div> <div onclick="popHeart(this, 'N')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'A')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'N')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'N')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, 'U')" class="pop-bubble">💖</div>
-            <div onclick="popHeart(this, '?')" class="pop-bubble">💖</div>
-        </div>
-
-        <div id="pop-message" class="mt-12 opacity-0 transition-all duration-1000 transform translate-y-10 pointer-events-none">
-            <h2 class="text-3xl sm:text-5xl font-bold text-rose-600 tracking-tighter mb-4">PELLI CHESKUNTAVA NANNU?</h2>
-            <p class="cursive text-xl sm:text-2xl text-rose-400 mb-8">My heart has been waiting to ask you this...</p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pointer-events-auto">
-                <button onclick="acceptedProposal()" class="proposal-btn bg-rose-500 text-white">
-                    YES! ❤️
-                </button>
-                <button onclick="acceptedProposal()" class="proposal-btn bg-white text-rose-500 border-2 border-rose-500">
-                    YES! (In Pink) 🌸
-                </button>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div id="success-message" class="fixed inset-0 z-[5000] hidden flex-col items-center justify-center bg-white/95 backdrop-blur-lg text-center p-6">
-    <div class="animate-bounce text-8xl mb-6">💍</div>
-    <h1 class="cursive text-6xl sm:text-8xl text-rose-600 mb-4">She said YES!</h1>
-    <p class="text-rose-400 text-xl font-light tracking-widest uppercase">Forever Begins Now | 2026</p>
-    <button onclick="closeSuccess()" class="mt-12 text-rose-300 underline text-sm tracking-widest uppercase">View our journey again</button>
-</div>
-
-<style>
-    /* POP BUBBLE STYLES */
-    .pop-bubble {
-        width: 45px; height: 45px;
-        background: white; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1.1rem; cursor: pointer;
-        box-shadow: 0 4px 10px rgba(244, 63, 94, 0.1);
-        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        user-select: none; -webkit-tap-highlight-color: transparent;
-    }
-    @media (min-width: 640px) { .pop-bubble { width: 60px; height: 60px; font-size: 1.4rem; } }
-    .pop-bubble:active { transform: scale(0.8); }
-    .pop-bubble.popped {
-        background: #ffe4e6; color: #e11d48;
-        transform: scale(0.85); font-weight: bold;
-        pointer-events: none; font-family: 'Dancing Script', cursive;
-    }
-
-    /* PROPOSAL BUTTONS */
-    .proposal-btn {
-        padding: 1rem 2.5rem; border-radius: 9999px; font-weight: 800;
-        box-shadow: 0 10px 20px rgba(244, 63, 94, 0.2);
-        transition: all 0.3s; cursor: pointer;
-        animation: pulseGlow 2s infinite;
-    }
-    .proposal-btn:hover { transform: scale(1.1); box-shadow: 0 15px 30px rgba(244, 63, 94, 0.3); }
-
-    @keyframes pulseGlow {
-        0% { box-shadow: 0 0 0 0px rgba(251, 113, 133, 0.4); }
-        70% { box-shadow: 0 0 0 20px rgba(251, 113, 133, 0); }
-        100% { box-shadow: 0 0 0 0px rgba(251, 113, 133, 0); }
-    }
-</style>
-
-<script>
-    let poppedCount = 0;
-    const totalToPop = 22; // PELLI(5) + CHESKUNTAVA(11) + NANNU(5) + ?(1)
-
-    function popHeart(el, letter) {
-        if (el.classList.contains('popped')) return;
-        el.classList.add('popped');
-        el.innerText = letter;
-        poppedCount++;
-
-        // Vibrate phone if supported
-        if (navigator.vibrate) navigator.vibrate(15);
-
-        if (poppedCount === totalToPop) {
-            const msg = document.getElementById('pop-message');
-            msg.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-            msg.classList.add('opacity-100', 'translate-y-0');
-            window.scrollTo({ top: msg.offsetTop + 200, behavior: 'smooth' });
-        }
-    }
-
-    function acceptedProposal() {
-        const success = document.getElementById('success-message');
-        success.classList.remove('hidden');
-        success.classList.add('flex');
-
-        // Explosion of 200 items
-        for (let i = 0; i < 200; i++) {
-            setTimeout(() => {
-                const item = document.createElement('div');
-                item.innerHTML = ['❤️', '💖', '💍', '🌸', '✨', '💎'][Math.floor(Math.random() * 6)];
-                item.style.position = 'fixed';
-                item.style.left = Math.random() * 100 + 'vw';
-                item.style.top = '100vh';
-                item.style.fontSize = Math.random() * 30 + 20 + 'px';
-                item.style.zIndex = '6000';
-                item.style.transition = `transform ${Math.random() * 3 + 2}s linear, opacity 2s`;
-                document.body.appendChild(item);
-
-                setTimeout(() => {
-                    item.style.transform = `translateY(-120vh) translateX(${(Math.random() - 0.5) * 400}px) rotate(${Math.random() * 720}deg)`;
-                    item.style.opacity = '0';
-                }, 100);
-                setTimeout(() => item.remove(), 5000);
-            }, i * 15);
-        }
-    }
-
-    function closeSuccess() {
-        document.getElementById('success-message').classList.add('hidden');
-        document.getElementById('success-message').classList.remove('flex');
-    }
-</script>
-
 </body>
 </html>
 
-  
+    
+
 
 
