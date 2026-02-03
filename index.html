@@ -58,6 +58,14 @@
     background-size: 20px 20px;
     box-shadow: inset 0 0 50px rgba(0,0,0,0.05), 0 20px 30px rgba(0,0,0,0.1);
 }
+.polaroid:hover {
+    transform: rotate(var(--r, 2deg)) scale(1.05);
+    box-shadow: 0 15px 30px rgba(244, 63, 94, 0.2);
+    z-index: 50;
+}
+/* This gives each photo a slightly different tilt */
+.polaroid:nth-child(even) { --r: -3deg; }
+.polaroid:nth-child(odd) { --r: 3deg; }
 
     </style>
 </head>
