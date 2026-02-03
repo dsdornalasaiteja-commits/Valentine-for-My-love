@@ -160,12 +160,12 @@
             <div class="polaroid"><img src="Pic4.jpg"><p class="cursive">Pure Happiness</p></div>
             <div class="polaroid"><img src="Pic5.jpg"><p class="cursive">Our Adventure</p></div>
             <div class="polaroid"><img src="Pic12.jpg"><p class="cursive">Everything</p></div>
-            <div class="polaroid"><img src="pic6.jpg"><p class="cursive">My Favorite View</p></div>
-        <div class="polaroid"><img src="pic7.jpg"><p class="cursive">Golden Hour</p></div>
-        <div class="polaroid"><img src="pic8.jpg"><p class="cursive">Silly Moments</p></div>
-        <div class="polaroid"><img src="pic9.jpg"><p class="cursive">Little Things</p></div>
-        <div class="polaroid"><img src="pic10.jpg"><p class="cursive">Sunny Days</p></div>
-        <div class="polaroid"><img src="pic11.jpg"><p class="cursive">That Smile</p></div>
+            <div class="polaroid"><img src="Pic6.jpg"><p class="cursive">My Favorite View</p></div>
+        <div class="polaroid"><img src="Pic7.jpg"><p class="cursive">Golden Hour</p></div>
+        <div class="polaroid"><img src="Pic8.jpg"><p class="cursive">Silly Moments</p></div>
+        <div class="polaroid"><img src="Pic9.jpg"><p class="cursive">Little Things</p></div>
+        <div class="polaroid"><img src="Pic10.jpg"><p class="cursive">Sunny Days</p></div>
+        <div class="polaroid"><img src="Pic11.jpg"><p class="cursive">That Smile</p></div>
             <div class="polaroid"><img src="Pic2.jpg"><p class="cursive">Forever to go</p></div>
         </div>
     </section>
@@ -375,6 +375,39 @@
     function clearVase() {
         document.getElementById('vase-flowers').innerHTML = '';
     }
+        function createHeartAt(x, y) {
+    const heart = document.createElement('div');
+    heart.innerHTML = '❤️';
+    heart.style.position = 'fixed';
+    heart.style.left = x + 'px';
+    heart.style.top = y + 'px';
+    heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+    heart.style.pointerEvents = 'none';
+    heart.style.zIndex = '1000';
+    heart.style.transition = 'all 1s ease-out';
+    
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.style.transform = `translateY(-50px) scale(1.5)`;
+        heart.style.opacity = '0';
+    }, 50);
+
+    setTimeout(() => heart.remove(), 1000);
+}
+
+// Listen for Desktop Mouse
+document.addEventListener('mousemove', (e) => {
+    createHeartAt(e.clientX, e.clientY);
+});
+
+// Listen for Tablet/Phone Touch
+document.addEventListener('touchmove', (e) => {
+    // This gets the position of the finger
+    const touch = e.touches[0];
+    createHeartAt(touch.clientX, touch.clientY);
+}, { passive: true });
+
 
     </script>
 </body>
