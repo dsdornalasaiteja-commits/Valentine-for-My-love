@@ -245,24 +245,51 @@
 }
 
 
-/* Wax Seal for the Letter */
+/* --- PARCHMENT CONTAINER FIX --- */
+.parchment-container {
+    background: #fdf5e6;
+    background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+    padding: 60px 40px;
+    max-width: 550px;
+    margin: 50px auto;
+    border: 1px solid #d4a373;
+    box-shadow: 2px 2px 0px #c2a382, 15px 15px 40px rgba(0,0,0,0.15);
+    
+    /* CRITICAL: This keeps the seal inside the letter */
+    position: relative !important; 
+    transform: rotate(-0.5deg);
+}
+
+/* --- THE WAX SEAL (Locked to the letter) --- */
 .red-wax-seal {
-    width: 60px;
-    height: 60px;
+    position: absolute !important;
+    bottom: -25px; /* Halfway off the bottom edge */
+    right: 30px;   /* Tucked into the right corner */
+    width: 70px;
+    height: 70px;
     background: #991b1b;
     border-radius: 50%;
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-size: 20px;
-    border: 2px solid #7f1d1d;
+    color: #fecaca;
+    font-size: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    border: 3px solid #7f1d1d;
+    z-index: 10;
+    transform: rotate(10deg); /* Slightly tilted for realism */
+    font-family: 'Dancing Script', cursive !important;
 }
+
+/* Adds a "stamped" inner circle look */
+.red-wax-seal::after {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+}
+
 
     </style>
 </head>
