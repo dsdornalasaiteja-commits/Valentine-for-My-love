@@ -301,11 +301,11 @@
 }
 
 .memory-card {
-    /* Standard portrait aspect ratio (3:4) */
-    aspect-ratio: 1 / 1; 
+    height: 120px;
     position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    perspective: 1000px;
 }
 
 .memory-card.flipped {
