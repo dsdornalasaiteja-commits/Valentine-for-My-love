@@ -294,7 +294,9 @@
 .memory-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columns for tablet */
-    gap: 12px;
+    gap: 8px;
+    max-width: 400px; /* Keeps the cards from getting too wide */
+    margin: 0 auto;
     perspective: 1000px;
 }
 
