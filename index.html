@@ -201,36 +201,40 @@
 .magic-star:hover {
     transform: scale(1.2) rotate(10deg);
 }
-/* --- THE VINTAGE LOVE LETTER --- */
-.parchment-paper {
-    background: #fdf5e6;
-    background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
-    padding: 50px 30px;
-    max-width: 550px;
-    margin: 40px auto;
-    border-radius: 2px;
+/* --- THE INTIMATE TORN-EDGE LETTER --- */
+.handwritten-letter {
+    background: #fdfaf0;
+    background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+    padding: 60px 40px;
+    max-width: 500px;
+    margin: 50px auto;
     position: relative;
-    border: 1px solid #d4a373;
-    box-shadow: 
-        8px 8px 0px #e9d5a3,
-        0 20px 40px rgba(0,0,0,0.1);
-    transform: rotate(-0.5deg);
+    /* Creating a torn-edge look with clip-path */
+    clip-path: polygon(
+        0% 2%, 5% 0%, 10% 3%, 15% 1%, 20% 4%, 25% 2%, 30% 5%, 35% 3%, 40% 6%, 45% 4%, 50% 7%, 55% 5%, 60% 8%, 65% 6%, 70% 9%, 75% 7%, 80% 10%, 85% 8%, 90% 11%, 95% 9%, 100% 12%,
+        100% 90%, 95% 92%, 90% 89%, 85% 91%, 80% 88%, 75% 90%, 70% 87%, 65% 89%, 60% 86%, 55% 88%, 50% 85%, 45% 87%, 40% 84%, 35% 86%, 30% 83%, 25% 85%, 20% 82%, 15% 84%, 10% 81%, 5% 83%, 0% 80%
+    );
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-left: 2px solid rgba(0,0,0,0.02);
 }
 
-.parchment-paper::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border: 2px solid rgba(139, 69, 19, 0.1);
-    margin: 10px;
-    pointer-events: none;
+.ink-text {
+    color: #2c3e50; /* Slightly blue-black ink color */
+    font-size: 1.4rem;
+    line-height: 1.6;
+    text-align: left;
+    transform: rotate(-0.5deg); /* Everything slightly tilted for realism */
 }
 
-.letter-ink {
-    color: #4b3621;
-    line-height: 1.8;
-    text-align: center;
+.ink-text p {
+    margin-bottom: 1.5rem;
 }
+
+.letter-accent {
+    color: #e11d48; /* Rose color for specific heart words */
+    font-weight: bold;
+}
+
 
 /* Wax Seal for the Letter */
 .red-wax-seal {
@@ -341,16 +345,13 @@
         </div>
     </section>
 
-    <section class="max-w-4xl mx-auto py-20 px-6">
-    <div class="parchment-paper" data-aos="fade-up">
-        <div class="letter-ink">
-            <div class="text-rose-300 text-3xl mb-6">❦</div>
+    <section class="max-w-4xl mx-auto py-16 px-6 overflow-hidden">
+    <div class="handwritten-letter">
+        <div class="ink-text cursive">
+            <p class="text-3xl mb-10">To my <span class="letter-accent">Sony💖</span>,</p>
             
-            <p class="cursive text-3xl mb-8">My Dearest [Sony],</p>
-            
-            <div class="space-y-6 cursive text-xl sm:text-2xl px-4 sm:px-10">
-                <p>
-                    Baby,From you being unknown for me to the person I am dying for you 
+            <p>
+                Baby,From you being unknown for me to the person I am dying for you 
                     I just wish God us to give the time,health and wealth to be by your side till the world's end
                 </p>
                 
@@ -363,14 +364,20 @@
                 <p>
                     Thank you for being my lover, my other half, and my best friend. 
                     I am so incredibly proud of the person you are.
-                </p>
-            </div>
-            
-            <p class="cursive text-3xl mt-10">Yours, Forever & Always</p>
-            <p class="text-sm uppercase tracking-widest mt-2 text-amber-900/40">[yours Teja😘]</p>
+            </p>
+    
+            <p class="mt-12">
+                With all my love,<br>
+                <span class="text-3xl letter-accent">[Your  Teja😘]</span>
+            </p>
         </div>
+        
+        <div class="absolute top-10 right-10 opacity-30 text-3xl">🥀</div>
+    </div>
+</section>
 
-        <div class="red-wax-seal cursive">M</div>
+
+        <div class="red-wax-seal cursive">G S</div>
     </div>
 </section>
 
