@@ -450,6 +450,47 @@ function createGameHeart() {
 
 // Ensure the interval is running
 setInterval(createGameHeart, 2000);
+function sayYes() {
+    // 1. Show the success screen
+    const screen = document.getElementById('success-screen');
+    screen.classList.remove('hidden');
+
+    // 3. Create a massive explosion of 100 hearts/confetti
+    for (let i = 0; i < 100; i++) {
+        createConfetti();
+    }
+}
+
+function createConfetti() {
+    const confetti = document.createElement('div');
+    const colors = ['#ff4d6d', '#ffb3c1', '#ff758f', '#c9184a', '#ffffff'];
+    const emojis = ['❤️', '💖', '✨', '💍', '🌸'];
+    
+    confetti.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+    confetti.style.position = 'fixed';
+    confetti.style.left = '50%';
+    confetti.style.top = '50%';
+    confetti.style.zIndex = '10001';
+    confetti.style.fontSize = Math.random() * 2 + 1 + 'rem';
+    
+    document.body.appendChild(confetti);
+
+    // Random direction for the explosion
+    const destinationX = (Math.random() - 0.5) * window.innerWidth * 1.5;
+    const destinationY = (Math.random() - 0.5) * window.innerHeight * 1.5;
+    const rotation = Math.random() * 720;
+
+    const animation = confetti.animate([
+        { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+        { transform: `translate(${destinationX}px, ${destinationY}px) scale(1) rotate(${rotation}deg)`, opacity: 0 }
+    ], {
+        duration: Math.random() * 2000 + 1000,
+        easing: 'cubic-bezier(0, .9, .57, 1)',
+        fill: 'forwards'
+    });
+
+    animation.onfinish = () => confetti.remove();
+}
 
     </script>
 </body>
