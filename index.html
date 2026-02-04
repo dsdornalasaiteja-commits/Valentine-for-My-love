@@ -973,6 +973,64 @@ function spawnGameHeart() {
 // Start spawning hearts when she scrolls to the game
 setInterval(spawnGameHeart, 1500);
 
+        const images = ['Pic13.jpg', 'Pic14.jpg', 'Pic15.jpg', 'Pic16.jpg', 'Pic17.jpg', 'Pic18.jpg'];
+const gameGrid = [...images, ...images]; // Doubles the images to make pairs
+let flippedCards = [];
+let matchedCount = 0;
+
+function setupGame() {
+    const board = document.getElementById('memory-game');
+    // Shuffle cards
+    gameGrid.sort(() => Math.random() - 0.5);
+
+    gameGrid.forEach((imgSrc, index) => {
+        const card = document.createElement('div');
+        card.className = 'memory-card';
+        card.dataset.img = imgSrc;
+        card.innerHTML = `
+            <div class="card-front">❤️</div>
+            <div class="card-back"><img src="${imgSrc}"></div>
+        `;
+        card.onclick = () => flipCard(card);
+        board.appendChild(card);
+    });
+}
+
+function flipCard(card) {
+    if (flippedCards.length < 2 && !card.classList.contains('flipped') && !card.classList.contains('matched')) {
+        card.classList.add('flipped');
+        flippedCards.push(card);
+
+        if (flippedCards.length === 2) {
+            checkMatch();
+        }
+    }
+}
+
+function checkMatch() {
+    const [card1, card2] = flippedCards;
+    const isMatch = card1.dataset.img === card2.dataset.img;
+
+    if (isMatch) {
+        card1.classList.add('matched');
+        card2.classList.add('matched');
+        matchedCount++;
+        flippedCards = [];
+        if (matchedCount === images.length) {
+            document.getElementById('game-complete').classList.remove('hidden');
+        }
+    } else {
+        setTimeout(() => {
+            card1.classList.remove('flipped');
+            card2.classList.remove('flipped');
+            flippedCards = [];
+        }, 1000);
+    }
+}
+
+// Call this function when the page loads
+setupGame();
+
     </script>
 </body>
 </html>
