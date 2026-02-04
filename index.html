@@ -201,6 +201,55 @@
 .magic-star:hover {
     transform: scale(1.2) rotate(10deg);
 }
+/* --- THE VINTAGE LOVE LETTER --- */
+.parchment-paper {
+    background: #fdf5e6;
+    background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+    padding: 50px 30px;
+    max-width: 550px;
+    margin: 40px auto;
+    border-radius: 2px;
+    position: relative;
+    border: 1px solid #d4a373;
+    box-shadow: 
+        8px 8px 0px #e9d5a3,
+        0 20px 40px rgba(0,0,0,0.1);
+    transform: rotate(-0.5deg);
+}
+
+.parchment-paper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 2px solid rgba(139, 69, 19, 0.1);
+    margin: 10px;
+    pointer-events: none;
+}
+
+.letter-ink {
+    color: #4b3621;
+    line-height: 1.8;
+    text-align: center;
+}
+
+/* Wax Seal for the Letter */
+.red-wax-seal {
+    width: 60px;
+    height: 60px;
+    background: #991b1b;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    border: 2px solid #7f1d1d;
+}
 
     </style>
 </head>
@@ -291,6 +340,40 @@
             <div class="polaroid"><img src="Pic2.jpg"><p class="cursive">Forever to go</p></div>
         </div>
     </section>
+
+    <section class="max-w-4xl mx-auto py-20 px-6">
+    <div class="parchment-paper" data-aos="fade-up">
+        <div class="letter-ink">
+            <div class="text-rose-300 text-3xl mb-6">❦</div>
+            
+            <p class="cursive text-3xl mb-8">My Dearest [Sony],</p>
+            
+            <div class="space-y-6 cursive text-xl sm:text-2xl px-4 sm:px-10">
+                <p>
+                    Baby,From you being unknown for me to the person I am dying for you 
+                    I just wish God us to give the time,health and wealth to be by your side till the world's end
+                </p>
+                
+                <p>
+                    You are the person who makes my world exiting lively, 
+                    the one who turns my ordinary days into something extraordinary. 
+                    Every second we spend is a memory I want to be in for the rest of my life.
+                </p>
+                
+                <p>
+                    Thank you for being my lover, my other half, and my best friend. 
+                    I am so incredibly proud of the person you are.
+                </p>
+            </div>
+            
+            <p class="cursive text-3xl mt-10">Yours, Forever & Always</p>
+            <p class="text-sm uppercase tracking-widest mt-2 text-amber-900/40">[yours Teja😘]</p>
+        </div>
+
+        <div class="red-wax-seal cursive">M</div>
+    </div>
+</section>
+
 <section class="max-w-2xl mx-auto py-16 px-6 text-center">
     <h3 class="cursive text-4xl text-rose-400 mb-10">4 Stars, 4 Promises... ✨</h3>
     
@@ -701,6 +784,23 @@ function createSparkles(el) {
         ], { duration: 800, easing: 'ease-out' }).onfinish = () => sparkle.remove();
     }
 }
+window.addEventListener('scroll', () => {
+    const paper = document.querySelector('.parchment-paper');
+    if (paper) {
+        const triggerBottom = window.innerHeight / 5 * 4;
+        const paperTop = paper.getBoundingClientRect().top;
+        
+        if(paperTop < triggerBottom) {
+            paper.style.opacity = '1';
+            paper.style.transform = 'translateY(0) rotate(-0.5deg)';
+        } else {
+            // Initial state (Add these to your CSS for the paper)
+            paper.style.opacity = '0';
+            paper.style.transform = 'translateY(50px) rotate(0deg)';
+            paper.style.transition = 'all 1.2s ease-out';
+        }
+    }
+});
 
     </script>
 </body>
