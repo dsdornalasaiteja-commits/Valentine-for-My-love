@@ -1015,7 +1015,7 @@ function spawnGameHeart() {
     }, 20);
 
     h.onclick = h.ontouchstart = () => {
-        score++;
+        score += 1;
         document.getElementById('score-board').innerText = `Hearts: ${score}`;
         h.innerHTML = '✨';
         h.style.opacity = '0';
