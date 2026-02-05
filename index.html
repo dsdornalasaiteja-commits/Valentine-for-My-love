@@ -133,9 +133,25 @@
         .counter-box { background: rgba(255, 255, 255, 0.8); padding: 15px; border-radius: 20px; min-width: 80px; border: 1px solid white; box-shadow: 0 10px 20px rgba(244, 63, 94, 0.05); }
 
         /* --- POP HEART GAME STYLES --- */
-        .pop-bubble { width: 50px; height: 50px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.1); transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @media (min-width: 640px) { .pop-bubble { width: 65px; height: 65px; font-size: 1.5rem; } }
-        .pop-bubble.popped { background: #ffe4e6; color: #e11d48; transform: scale(0.85); font-weight: bold; pointer-events: none; }
+    .heart-pop-msg {
+    position: fixed;
+    padding: 8px 15px;
+    background: white;
+    border-radius: 20px;
+    color: #e11d48;
+    font-weight: bold;
+    z-index: 9999;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    pointer-events: none;
+    animation: popUpFade 1.5s forwards;
+    white-space: nowrap;
+}
+
+@keyframes popUpFade {
+    0% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -100px) scale(1.2); }
+}
+
 
         .proposal-btn { padding: 1rem 2.5rem; border-radius: 9999px; font-weight: 800; transition: all 0.3s; cursor: pointer; animation: pulseGlow 2s infinite; }
         @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0px rgba(251, 113, 133, 0.4); } 70% { box-shadow: 0 0 0 20px rgba(251, 113, 133, 0); } 100% { box-shadow: 0 0 0 0px rgba(251, 113, 133, 0); } }
@@ -809,38 +825,54 @@ document.addEventListener('touchmove', (e) => {
 
 function createGameHeart() {
     const heart = document.createElement('div');
-    const compliments = ["You're Cute!", "My Love ❤️", "Stay Mine", "Beautiful ✨", "My Queen", "Forever? 💍"];
+    // YOUR HIDDEN MESSAGES
+    const messages = ["You're Cute!", "My Love ❤️", "Stay Mine", "Beautiful ✨", "My Queen", "I love you Sony!", "Always Yours"];
     
     heart.innerHTML = '💖';
-    heart.className = 'falling-heart';
-    heart.style.position = 'fixed'; // Ensures they stay on screen
+    heart.style.position = 'fixed';
     heart.style.left = Math.random() * 90 + 'vw';
     heart.style.top = '-10%';
-    heart.style.zIndex = '5000'; // Higher than polaroids and stickers
+    heart.style.zIndex = '5000';
     heart.style.cursor = 'pointer';
     heart.style.fontSize = '2.5rem';
-    heart.style.animation = `fall ${Math.random() * 3 + 4}s linear forwards`;
+    heart.style.userSelect = 'none';
+    heart.style.transition = 'opacity 0.3s';
     
-    // Support for both Click and Touch
+    // Falling animation
+    const duration = Math.random() * 3 + 4;
+    heart.animate([
+        { top: '-10%' },
+        { top: '110%' }
+    ], { duration: duration * 1000, easing: 'linear' });
+
     const handlePop = function(e) {
-        e.preventDefault(); // Prevents tablet scrolling while tapping
-        const msg = compliments[Math.floor(Math.random() * compliments.length)];
-        heart.innerHTML = `<span style="background: white; padding: 5px 15px; border-radius: 20px; font-size: 1rem; color: #e11d48; shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #ffe4e6; white-space: nowrap;">${msg}</span>`;
-        heart.style.animationPlayState = 'paused'; // Stop falling when clicked
-        setTimeout(() => {
-            heart.style.opacity = '0';
-            setTimeout(() => heart.remove(), 500);
-        }, 1000);
+        e.preventDefault();
+        const touch = e.touches ? e.touches[0] : e;
+        
+        // Create the Love Bubble Message
+        const msg = document.createElement('div');
+        msg.className = 'heart-pop-msg cursive';
+        msg.style.left = touch.clientX + 'px';
+        msg.style.top = touch.clientY + 'px';
+        msg.innerText = messages[Math.floor(Math.random() * messages.length)];
+        document.body.appendChild(msg);
+
+        // Remove heart immediately on tap
+        heart.remove();
+
+        // Remove message after animation
+        setTimeout(() => msg.remove(), 1500);
     };
 
     heart.addEventListener('mousedown', handlePop);
-    heart.addEventListener('touchstart', handlePop);
+    heart.addEventListener('touchstart', handlePop, {passive: false});
 
     document.body.appendChild(heart);
     
-    // Clean up if not clicked
-    setTimeout(() => { if(heart.parentNode) heart.remove(); }, 7000);
+    // Auto-remove heart if it reaches the bottom
+    setTimeout(() => { if(heart.parentNode) heart.remove(); }, duration * 1000);
 }
+ 
 
 // Ensure the interval is running
 setInterval(createGameHeart, 2000);
